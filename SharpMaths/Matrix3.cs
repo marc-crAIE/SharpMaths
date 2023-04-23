@@ -151,6 +151,22 @@ namespace SharpMaths
             return result;
         }
         public static Matrix3 operator *(float scalar, Matrix3 m) => m * scalar;
+        public static Matrix3 operator *(Matrix3 a, Matrix3 b)
+        {
+            Matrix3 result = new Matrix3(0.0f);
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    result[i, j] = 0;
+                    for (int k = 0; k < 3; k++)
+                    {
+                        result[i, j] += a[i, k] * b[k, j];
+                    }
+                }
+            }
+            return result;
+        }
 
         public static Matrix3 operator /(Matrix3 m, float scalar)
         {
@@ -165,6 +181,7 @@ namespace SharpMaths
             return result;
         }
         public static Matrix3 operator /(float scalar, Matrix3 m) => m / scalar;
+        public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();
 
         public float this[int x, int y]
         {
