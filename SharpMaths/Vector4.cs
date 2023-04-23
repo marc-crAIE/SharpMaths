@@ -72,23 +72,29 @@ namespace SharpMaths
         }
 
         public static Vector4 operator +(Vector4 v, float scalar) => new Vector4(v.x + scalar, v.y + scalar, v.z + scalar, v.w + scalar);
-        public static Vector4 operator +(float scalar, Vector4 v) => new Vector4(v.x + scalar, v.y + scalar, v.z + scalar, v.w + scalar);
+        public static Vector4 operator +(float scalar, Vector4 v) => v + scalar;
         public static Vector4 operator +(Vector4 v1, Vector2 v2) => new Vector4(v1.x + v2.x, v1.y + v2.y, v1.z, v1.w);
         public static Vector4 operator +(Vector4 v1, Vector3 v2) => new Vector4(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z, v1.w);
         public static Vector4 operator +(Vector4 v1, Vector4 v2) => new Vector4(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z, v1.w + v2.w);
 
         public static Vector4 operator -(Vector4 v, float scalar) => new Vector4(v.x - scalar, v.y - scalar, v.z - scalar, v.w - scalar);
-        public static Vector4 operator -(float scalar, Vector4 v) => new Vector4(v.x - scalar, v.y - scalar, v.z - scalar, v.w - scalar);
+        public static Vector4 operator -(float scalar, Vector4 v) => v - scalar;
         public static Vector4 operator -(Vector4 v1, Vector2 v2) => new Vector4(v1.x - v2.x, v1.y - v2.y, v1.z, v1.w);
         public static Vector4 operator -(Vector4 v1, Vector3 v2) => new Vector4(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z, v1.w);
         public static Vector4 operator -(Vector4 v1, Vector4 v2) => new Vector4(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z, v1.w - v2.w);
 
         public static Vector4 operator *(Vector4 v, float scalar) => new Vector4(v.x * scalar, v.y * scalar, v.z * scalar, v.w * scalar);
-        public static Vector4 operator *(float scalar, Vector4 v) => new Vector4(v.x * scalar, v.y * scalar, v.z * scalar, v.w * scalar);
+        public static Vector4 operator *(float scalar, Vector4 v) => v * scalar;
         public static Vector4 operator *(Vector4 v1, Vector2 v2) => new Vector4(v1.x * v2.x, v1.y * v2.y, v1.z, v1.w);
         public static Vector4 operator *(Vector4 v1, Vector3 v2) => new Vector4(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z, v1.w);
         public static Vector4 operator *(Vector4 v1, Vector4 v2) => new Vector4(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z, v1.w * v2.w);
 
-        public override string ToString() => $"({x}, {y}, {z}, {w})";
+        public static Vector4 operator /(Vector4 v, float scalar) => new Vector4(v.x / scalar, v.y / scalar, v.z / scalar, v.w / scalar);
+        public static Vector4 operator /(float scalar, Vector4 v) => v / scalar;
+        public static Vector4 operator /(Vector4 v1, Vector2 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z, v1.w);
+        public static Vector4 operator /(Vector4 v1, Vector3 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w);
+        public static Vector4 operator /(Vector4 v1, Vector4 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w / v2.w);
+
+        public override string ToString() => $"( {x}, {y}, {z}, {w} )";
     }
 }

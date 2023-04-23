@@ -60,29 +60,29 @@ namespace SharpMaths
         }
 
         public static Vector2 operator +(Vector2 v, float scalar) => new Vector2(v.x + scalar, v.y + scalar);
-        public static Vector2 operator +(float scalar, Vector2 v) => new Vector2(v.x + scalar, v.y + scalar);
+        public static Vector2 operator +(float scalar, Vector2 v) => v + scalar;
         public static Vector2 operator +(Vector2 v1, Vector2 v2) => new Vector2(v1.x + v2.x, v1.y + v2.y);
         public static Vector2 operator +(Vector2 v1, Vector3 v2) => new Vector2(v1.x + v2.x, v1.y + v2.y);
         public static Vector2 operator +(Vector2 v1, Vector4 v2) => new Vector2(v1.x + v2.x, v1.y + v2.y);
 
         public static Vector2 operator -(Vector2 v, float scalar) => new Vector2(v.x - scalar, v.y - scalar);
-        public static Vector2 operator -(float scalar, Vector2 v) => new Vector2(v.x - scalar, v.y - scalar);
+        public static Vector2 operator -(float scalar, Vector2 v) => v - scalar;
         public static Vector2 operator -(Vector2 v1, Vector2 v2) => new Vector2(v1.x - v2.x, v1.y - v2.y);
         public static Vector2 operator -(Vector2 v1, Vector3 v2) => new Vector2(v1.x - v2.x, v1.y - v2.y);
         public static Vector2 operator -(Vector2 v1, Vector4 v2) => new Vector2(v1.x - v2.x, v1.y - v2.y);
 
-        public static Vector2 operator *(Vector2 v, float f) => new Vector2(v.x * f, v.y * f);
-        public static Vector2 operator *(float f, Vector2 v) => new Vector2(v.x * f, v.y * f);
+        public static Vector2 operator *(Vector2 v, float scalar) => new Vector2(v.x * scalar, v.y * scalar);
+        public static Vector2 operator *(float scalar, Vector2 v) => v * scalar;
         public static Vector2 operator *(Vector2 v1, Vector2 v2) => new Vector2(v1.x * v2.x, v1.y * v2.y);
         public static Vector2 operator *(Vector2 v1, Vector3 v2) => new Vector2(v1.x * v2.x, v1.y * v2.y);
         public static Vector2 operator *(Vector2 v1, Vector4 v2) => new Vector2(v1.x * v2.x, v1.y * v2.y);
 
-        public static Vector2 operator /(Vector2 v, float f) => new Vector2(v.x / f, v.y / f);
-        public static Vector2 operator /(float f, Vector2 v) => new Vector2(v.x / f, v.y / f);
+        public static Vector2 operator /(Vector2 v, float scalar) => new Vector2(v.x / scalar, v.y / scalar);
+        public static Vector2 operator /(float scalar, Vector2 v) => v / scalar;
         public static Vector2 operator /(Vector2 v1, Vector2 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
         public static Vector2 operator /(Vector2 v1, Vector3 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
         public static Vector2 operator /(Vector2 v1, Vector4 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
 
-        public override string ToString() => $"({x}, {y})";
+        public override string ToString() => $"( {x}, {y} )";
     }
 }
