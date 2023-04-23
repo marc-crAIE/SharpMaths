@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMaths", "SharpMaths\SharpMaths.csproj", "{2F72FBB4-AF6D-481E-95D3-1FFB97BF0C74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{DD61F1F8-4644-46C0-A4AF-2E18605E95B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F72FBB4-AF6D-481E-95D3-1FFB97BF0C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F72FBB4-AF6D-481E-95D3-1FFB97BF0C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F72FBB4-AF6D-481E-95D3-1FFB97BF0C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F72FBB4-AF6D-481E-95D3-1FFB97BF0C74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD61F1F8-4644-46C0-A4AF-2E18605E95B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD61F1F8-4644-46C0-A4AF-2E18605E95B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD61F1F8-4644-46C0-A4AF-2E18605E95B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD61F1F8-4644-46C0-A4AF-2E18605E95B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65E734A1-1B7B-4710-AD47-1A03570DACFA}
+	EndGlobalSection
+EndGlobal
