@@ -10,12 +10,14 @@ namespace SharpMaths
     {
         public float[,] matrix;
 
+        public Matrix3() : this(0.0f) { }
+
         public Matrix3(float f)
         {
             this.matrix = new float[3, 3];
-            this.matrix[0, 0] = f;
-            this.matrix[1, 1] = f;
-            this.matrix[2, 2] = f;
+            this[0, 0] = f;
+            this[1, 1] = f;
+            this[2, 2] = f;
         }
 
         public Matrix3(float[,] m)
@@ -31,9 +33,9 @@ namespace SharpMaths
                        float m20, float m21, float m22)
         {
             this.matrix = new float[3,3];
-            this.matrix[0, 0] = m00; this.matrix[1, 0] = m01; this.matrix[2, 0] = m02;
-            this.matrix[0, 1] = m10; this.matrix[1, 1] = m11; this.matrix[2, 1] = m12;
-            this.matrix[0, 2] = m20; this.matrix[1, 2] = m21; this.matrix[2, 2] = m22;
+            this[0, 0] = m00; this[1, 0] = m01; this[2, 0] = m02;
+            this[0, 1] = m10; this[1, 1] = m11; this[2, 1] = m12;
+            this[0, 2] = m20; this[1, 2] = m21; this[2, 2] = m22;
         }
 
         public static Matrix3 Identity() => new Matrix3(1.0f);
@@ -49,12 +51,12 @@ namespace SharpMaths
 
         public Matrix3 Transpose()
         {
-            Matrix3 result = new Matrix3(new float[3, 3]);
+            Matrix3 result = new Matrix3(0.0f);
             for (int y = 0; y < 3; y++)
             {
                 for (int x = 0; x < 3; x++)
                 {
-                    result[x, y] = matrix[y, x];
+                    result[x, y] = this[y, x];
                 }
             }
             return result;
@@ -70,18 +72,21 @@ namespace SharpMaths
             float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
             float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
 
-            float[,] newData = new float[3, 3];
-            newData[0, 0] = (m11 * m22 - m12 * m21) / det;
-            newData[0, 1] = (m02 * m21 - m01 * m22) / det;
-            newData[0, 2] = (m01 * m12 - m02 * m11) / det;
-            newData[1, 0] = (m12 * m20 - m10 * m22) / det;
-            newData[1, 1] = (m00 * m22 - m02 * m20) / det;
-            newData[1, 2] = (m02 * m10 - m00 * m12) / det;
-            newData[2, 0] = (m10 * m21 - m11 * m20) / det;
-            newData[2, 1] = (m01 * m20 - m00 * m21) / det;
-            newData[2, 2] = (m00 * m11 - m01 * m10) / det;
+            Matrix3 result = new Matrix3(0.0f);
 
-            return new Matrix3(newData);
+            result[0, 0] = (m11 * m22 - m12 * m21) / det;
+            result[0, 1] = (m02 * m21 - m01 * m22) / det;
+            result[0, 2] = (m01 * m12 - m02 * m11) / det;
+
+            result[1, 0] = (m12 * m20 - m10 * m22) / det;
+            result[1, 1] = (m00 * m22 - m02 * m20) / det;
+            result[1, 2] = (m02 * m10 - m00 * m12) / det;
+
+            result[2, 0] = (m10 * m21 - m11 * m20) / det;
+            result[2, 1] = (m01 * m20 - m00 * m21) / det;
+            result[2, 2] = (m00 * m11 - m01 * m10) / det;
+
+            return result;
         }
 
         public static Matrix3 operator +(Matrix3 m, float scalar)
@@ -161,7 +166,7 @@ namespace SharpMaths
                     result[i, j] = 0;
                     for (int k = 0; k < 3; k++)
                     {
-                        result[i, j] += a[i, k] * b[k, j];
+                        result[i, j] += a[k, j] * b[i, k];
                     }
                 }
             }
@@ -180,13 +185,13 @@ namespace SharpMaths
             }
             return result;
         }
-        public static Matrix3 operator /(float scalar, Matrix3 m) => m / scalar;
+        public static Matrix3 operator /(float scalar, Matrix3 m) => scalar * m.Inverse();
         public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();
 
         public float this[int x, int y]
         {
-            get { return this.matrix[x, y]; }
-            set { this.matrix[x, y] = value; }
+            get { return matrix[x, y]; }
+            set { matrix[x, y] = value; }
         }
 
         public override string ToString()
