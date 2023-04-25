@@ -4,7 +4,7 @@
     {
         public float[,] matrix;
 
-        public Matrix4() : this(0.0f) { }
+        public Matrix4() : this(1.0f) { }
 
         public Matrix4(float f)
         {
@@ -23,7 +23,6 @@
             this.matrix = m;
         }
 
-
         public Matrix4(float m00, float m01, float m02, float m03,
                        float m10, float m11, float m12, float m13,
                        float m20, float m21, float m22, float m23)
@@ -38,10 +37,10 @@
 
         public float Determinant()
         {
-            float m00 = matrix[0, 0], m10 = matrix[0, 1], m20 = matrix[0, 2], m30 = matrix[0, 3];
-            float m01 = matrix[1, 0], m11 = matrix[1, 1], m21 = matrix[1, 2], m31 = matrix[1, 3];
-            float m02 = matrix[2, 0], m12 = matrix[2, 1], m22 = matrix[2, 2], m32 = matrix[2, 3];
-            float m03 = matrix[3, 0], m13 = matrix[3, 1], m23 = matrix[3, 2], m33 = matrix[3, 3];
+            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0], m03 = matrix[3, 0];
+            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1], m13 = matrix[3, 1];
+            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2], m23 = matrix[3, 2];
+            float m30 = matrix[0, 3], m31 = matrix[1, 3], m32 = matrix[2, 3], m33 = matrix[3, 3];
 
             float q = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m11 * m32 * m23 - m21 * m12 * m33 - m31 * m22 * m13;
             float r = m01 * m22 * m33 + m02 * m23 * m31 + m03 * m21 * m32 - m01 * m32 * m23 - m21 * m02 * m33 - m31 * m22 * m03;
@@ -70,10 +69,10 @@
             if (det == 0)
                 throw new InvalidOperationException("Matrix is not invertible.");
 
-            float m00 = matrix[0, 0], m10 = matrix[0, 1], m20 = matrix[0, 2], m30 = matrix[0, 3];
-            float m01 = matrix[1, 0], m11 = matrix[1, 1], m21 = matrix[1, 2], m31 = matrix[1, 3];
-            float m02 = matrix[2, 0], m12 = matrix[2, 1], m22 = matrix[2, 2], m32 = matrix[2, 3];
-            float m03 = matrix[3, 0], m13 = matrix[3, 1], m23 = matrix[3, 2], m33 = matrix[3, 3];
+            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0], m03 = matrix[3, 0];
+            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1], m13 = matrix[3, 1];
+            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2], m23 = matrix[3, 2];
+            float m30 = matrix[0, 3], m31 = matrix[1, 3], m32 = matrix[2, 3], m33 = matrix[3, 3];
 
             Matrix4 result = new Matrix4(0.0f);
 
@@ -107,60 +106,77 @@
             return result;
         }
 
-        public static Matrix4 Translation(float x, float y, float z)
+        public void SetTranslation(Vector3 v)
+        {
+            Matrix4 translation = Translation(v);
+            this *= translation;
+        }
+
+        public void SetRotation(float angle, Vector3 axis)
+        {
+            Matrix4 rotation = Rotation(angle, axis);
+            this *= rotation;
+        }
+
+        public void SetScale(Vector3 v)
+        {
+            Matrix4 scale = Scale(v);
+            this *= scale;
+        }
+
+        public static Matrix4 Translation(Vector3 v)
         {
             Matrix4 translation = new Matrix4(1.0f);
-            translation[0, 3] = x;
-            translation[1, 3] = y;
-            translation[2, 3] = z;
+            translation[3, 0] = v.x;
+            translation[3, 1] = v.y;
+            translation[3, 2] = v.z;
             return translation;
         }
+        public static Matrix4 Translation(float x, float y, float z) => Translation(new Vector3(x, y, z));
 
-        public static Matrix4 Scale(float x, float y, float z)
+        public static Matrix4 Scale(Vector3 v)
         {
             Matrix4 scale = new Matrix4(1.0f);
-            scale[0, 0] = x;
-            scale[1, 1] = y;
-            scale[2, 2] = z;
-            scale[3, 3] = 1.0f;
+            scale[0, 0] = v.x;
+            scale[1, 1] = v.y;
+            scale[2, 2] = v.z;
             return scale;
         }
+        public static Matrix4 Scaling(float x, float y, float z) => Scale(new Vector3(x, y, z));
 
-        public static Matrix4 RotationX(float angle)
+        public static Matrix4 Rotation(float angle, Vector3 axis)
         {
             Matrix4 rotation = new Matrix4(1.0f);
+
             float sin = (float)Math.Sin(angle);
             float cos = (float)Math.Cos(angle);
-            rotation[1, 1] = cos;
-            rotation[1, 2] = sin;
-            rotation[2, 1] = -sin;
-            rotation[2, 2] = cos;
+
+            axis.Normalize();
+
+            Vector3 omc = (1.0f - cos) * axis;
+
+            float x = axis.x;
+            float y = axis.y;
+            float z = axis.z;
+
+            rotation[0, 0] = cos + omc.x * x;
+            rotation[1, 0] = omc.y * x - sin * z;
+            rotation[2, 0] = omc.z * x + sin * y;
+
+            rotation[0, 1] = omc.x * y + sin * z;
+            rotation[1, 1] = cos + omc.y * y;
+            rotation[2, 1] = omc.z * y - sin * x;
+
+            rotation[0, 2] = omc.x * z - sin * y;
+            rotation[1, 2] = omc.y * z + sin * x;
+            rotation[2, 2] = cos + omc.z * z;
+
             return rotation;
         }
 
-        public static Matrix4 RotationY(float angle)
-        {
-            Matrix4 rotation = new Matrix4(1.0f);
-            float sin = (float)Math.Sin(angle);
-            float cos = (float)Math.Cos(angle);
-            rotation[0, 0] = cos;
-            rotation[0, 2] = -sin;
-            rotation[2, 0] = sin;
-            rotation[2, 2] = cos;
-            return rotation;
-        }
-
-        public static Matrix4 RotationZ(float angle)
-        {
-            var rotation = Identity();
-            var sin = (float)Math.Sin(angle);
-            var cos = (float)Math.Cos(angle);
-            rotation[0, 0] = cos;
-            rotation[0, 1] = -sin;
-            rotation[1, 0] = sin;
-            rotation[1, 1] = cos;
-            return rotation;
-        }
+        public static Matrix4 RotationX(float angle) => Rotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
+        public static Matrix4 RotationY(float angle) => Rotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
+        public static Matrix4 RotationZ(float angle) => Rotation(angle, new Vector3(0.0f, 0.0f, 1.0f));
 
         public static Matrix4 operator +(Matrix4 m, float scalar)
         {

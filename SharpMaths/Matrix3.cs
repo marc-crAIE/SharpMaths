@@ -10,7 +10,7 @@ namespace SharpMaths
     {
         public float[,] matrix;
 
-        public Matrix3() : this(0.0f) { }
+        public Matrix3() : this(1.0f) { }
 
         public Matrix3(float f)
         {
@@ -45,6 +45,7 @@ namespace SharpMaths
             float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
             float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
             float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
+
             return m00 * m11 * m22 + m10 * m21 * m02 + m20 * m01 * m12
                 - m02 * m11 * m20 - m12 * m21 * m00 - m22 * m01 * m10;
         }
