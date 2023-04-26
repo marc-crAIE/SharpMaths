@@ -49,8 +49,8 @@ namespace SharpMaths
             this.colour = (uint)r << 24 | (uint)g << 16 | (uint)b << 8 | a;
         }
 
-        public static implicit operator Vector3(Colour colour) => new Vector3(colour.red / 255, colour.green / 255, colour.blue / 255);
-        public static implicit operator Vector4(Colour colour) => new Vector4(colour.red / 255, colour.green / 255, colour.blue / 255, colour.alpha / 255);
+        public static implicit operator Vector3(Colour colour) => new Vector3(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f);
+        public static implicit operator Vector4(Colour colour) => new Vector4(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f, colour.alpha / 255.0f);
 
         public static implicit operator Colour(Vector3 v) => new Colour((byte)(v.x * 255), (byte)(v.y * 255), (byte)(v.z * 255));
         public static implicit operator Colour(Vector4 v) => new Colour((byte)(v.x * 255), (byte)(v.y * 255), (byte)(v.z * 255));
