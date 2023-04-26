@@ -83,6 +83,13 @@ namespace SharpMaths
         public static Vector3 operator *(Vector3 v1, Vector2 v2) => new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z);
         public static Vector3 operator *(Vector3 v1, Vector3 v2) => new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
         public static Vector3 operator *(Vector3 v1, Vector4 v2) => new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+        public static Vector3 operator *(Matrix3 m, Vector3 v)
+        {
+            return new Vector3(
+                m[0, 0] * v.x + m[1, 0] * v.y + m[2, 0] * v.z,
+                m[0, 1] * v.x + m[1, 1] * v.y + m[2, 1] * v.z,
+                m[0, 2] * v.x + m[1, 2] * v.y + m[2, 2] * v.z);
+        }
 
         public static Vector3 operator /(Vector3 v, float scalar) => new Vector3(v.x / scalar, v.y / scalar, v.z / scalar);
         public static Vector3 operator /(float scalar, Vector3 v) => v / scalar;
