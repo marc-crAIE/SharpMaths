@@ -103,6 +103,34 @@ namespace SharpMaths
         public static Vector4 operator /(Vector4 v1, Vector3 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w);
         public static Vector4 operator /(Vector4 v1, Vector4 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w / v2.w);
 
+        public float this[int i]
+        {
+            get
+            {
+                switch (i)
+                {
+                    case 0: return x; 
+                    case 1: return y; 
+                    case 2: return z; 
+                    case 3: return w;
+                }
+                return 0;
+            }
+            set
+            {
+                switch (i)
+                {
+                    case 0: x = value; break;
+                    case 1: y = value; break;
+                    case 2: z = value; break;
+                    case 3: w = value; break;
+                }
+            }
+        }
+
+        public static implicit operator Vector4(Vector3 v) => new Vector4(v.x, v.y, v.z, 0.0f);
+        public static implicit operator Vector4(Vector2 v) => new Vector4(v.x, v.y, 0.0f, 0.0f);
+
         public override string ToString() => $"( {x}, {y}, {z}, {w} )";
     }
 }

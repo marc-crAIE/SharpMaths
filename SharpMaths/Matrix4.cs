@@ -242,7 +242,7 @@
                     result[row, col] = 0;
                     for (int i = 0; i < 4; i++)
                     {
-                        result[row, col] += a[i, col] * b[row, i];
+                        result[row, col] += a[row, i] * b[i, col];
                     }
                 }
             }
