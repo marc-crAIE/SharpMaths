@@ -28,26 +28,26 @@
                        float m20, float m21, float m22, float m23)
         {
             this.matrix = new float[3, 3];
-            this[0, 0] = m00; this[1, 0] = m01; this[2, 0] = m02; this[3, 0] = m03;
-            this[0, 1] = m10; this[1, 1] = m11; this[2, 1] = m12; this[3, 1] = m13;
-            this[0, 2] = m20; this[1, 2] = m21; this[2, 2] = m22; this[3, 2] = m23;
+            this[0, 0] = m00; this[0, 1] = m01; this[0, 2] = m02; this[0, 3] = m03;
+            this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12; this[1, 3] = m13;
+            this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22; this[2, 3] = m23;
         }
 
         public static Matrix4 Identity() => new Matrix4(1.0f);
 
         public float Determinant()
         {
-            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0], m03 = matrix[3, 0];
-            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1], m13 = matrix[3, 1];
-            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2], m23 = matrix[3, 2];
-            float m30 = matrix[0, 3], m31 = matrix[1, 3], m32 = matrix[2, 3], m33 = matrix[3, 3];
+            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2], m03 = matrix[0, 3];
+            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2], m13 = matrix[1, 3];
+            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2], m23 = matrix[2, 3];
+            float m30 = matrix[3, 0], m31 = matrix[3, 1], m32 = matrix[3, 2], m33 = matrix[3, 3];
 
-            float q = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m11 * m32 * m23 - m21 * m12 * m33 - m31 * m22 * m13;
-            float r = m01 * m22 * m33 + m02 * m23 * m31 + m03 * m21 * m32 - m01 * m32 * m23 - m21 * m02 * m33 - m31 * m22 * m03;
-            float s = m01 * m12 * m33 + m02 * m13 * m31 + m03 * m11 * m32 - m01 * m32 * m13 - m11 * m02 * m33 - m31 * m12 * m03;
-            float t = m01 * m12 * m23 + m02 * m13 * m21 + m03 * m11 * m22 - m01 * m22 * m13 - m11 * m02 * m23 - m21 * m12 * m03;
+            float q = m11 * m22 * m33 + m21 * m32 * m13 + m31 * m12 * m23 - m11 * m23 * m32 - m12 * m21 * m33 - m13 * m22 * m31;
+            float r = m10 * m22 * m33 + m20 * m32 * m13 + m30 * m12 * m23 - m10 * m23 * m32 - m12 * m20 * m33 - m13 * m22 * m30;
+            float s = m10 * m21 * m33 + m20 * m31 * m13 + m30 * m11 * m23 - m10 * m23 * m31 - m11 * m20 * m33 - m13 * m21 * m30;
+            float t = m10 * m21 * m32 + m20 * m31 * m12 + m30 * m11 * m22 - m10 * m22 * m31 - m11 * m20 * m32 - m12 * m21 * m30;
 
-            return m00 * q - m10 * r + m20 * s - m30 * t;
+            return m00 * q - m01 * r + m02 * s - m03 * t;
         }
 
         public Matrix4 Transpose()
@@ -69,29 +69,29 @@
             if (det == 0)
                 throw new InvalidOperationException("Matrix is not invertible.");
 
-            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0], m03 = matrix[3, 0];
-            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1], m13 = matrix[3, 1];
-            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2], m23 = matrix[3, 2];
-            float m30 = matrix[0, 3], m31 = matrix[1, 3], m32 = matrix[2, 3], m33 = matrix[3, 3];
+            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2], m03 = matrix[0, 3];
+            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2], m13 = matrix[1, 3];
+            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2], m23 = matrix[2, 3];
+            float m30 = matrix[3, 0], m31 = matrix[3, 1], m32 = matrix[3, 2], m33 = matrix[3, 3];
 
             Matrix4 result = new Matrix4(0.0f);
 
-            float m2a1 = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m11 * m32 * m23 - m21 * m12 * m33 - m31 * m22 * m13;
-            float m2b1 = m01 * m22 * m33 + m02 * m23 * m31 + m03 * m21 * m32 - m01 * m32 * m23 - m21 * m02 * m33 - m31 * m22 * m03;
-            float m2c1 = m01 * m12 * m33 + m02 * m13 * m31 + m03 * m11 * m32 - m01 * m32 * m13 - m11 * m02 * m33 - m31 * m12 * m03;
-            float m2d1 = m01 * m12 * m23 + m02 * m13 * m21 + m03 * m11 * m22 - m01 * m22 * m13 - m11 * m02 * m23 - m21 * m12 * m03;
-            float m2a2 = m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32 - m10 * m32 * m23 - m20 * m12 * m33 - m30 * m22 * m13;
-            float m2b2 = m00 * m22 * m33 + m02 * m23 * m30 + m03 * m20 * m32 - m00 * m32 * m23 - m20 * m02 * m33 - m30 * m22 * m03;
-            float m2c2 = m00 * m12 * m33 + m02 * m13 * m30 + m03 * m10 * m32 - m00 * m32 * m13 - m10 * m02 * m33 - m30 * m12 * m03;
-            float m2d2 = m00 * m12 * m23 + m02 * m13 * m20 + m03 * m10 * m22 - m00 * m22 * m13 - m10 * m02 * m23 - m20 * m12 * m03;
-            float m2a3 = m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31 - m10 * m31 * m23 - m20 * m11 * m33 - m30 * m21 * m13;
-            float m2b3 = m00 * m21 * m33 + m01 * m23 * m30 + m03 * m20 * m31 - m00 * m31 * m23 - m20 * m01 * m33 - m30 * m21 * m03;
-            float m2c3 = m00 * m11 * m33 + m01 * m13 * m30 + m03 * m10 * m31 - m00 * m31 * m13 - m10 * m01 * m33 - m30 * m11 * m03;
-            float m2d3 = m00 * m11 * m23 + m01 * m13 * m20 + m03 * m10 * m21 - m00 * m21 * m13 - m10 * m01 * m23 - m20 * m11 * m03;
-            float m2a4 = m10 * m21 * m32 + m11 * m22 * m30 + m12 * m20 * m31 - m10 * m31 * m22 - m20 * m11 * m32 - m30 * m21 * m12;
-            float m2b4 = m00 * m21 * m32 + m01 * m22 * m30 + m02 * m20 * m31 - m00 * m31 * m22 - m20 * m01 * m32 - m30 * m21 * m02;
-            float m2c4 = m00 * m11 * m32 + m01 * m12 * m30 + m02 * m10 * m31 - m00 * m31 * m12 - m10 * m01 * m32 - m30 * m11 * m02;
-            float m2d4 = m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 - m00 * m21 * m12 - m10 * m01 * m22 - m20 * m11 * m02;
+            float m2a1 = m11 * m22 * m33 + m21 * m32 * m13 + m31 * m12 * m23 - m11 * m23 * m32 - m12 * m21 * m33 - m13 * m22 * m31;
+            float m2b1 = m10 * m22 * m33 + m20 * m32 * m13 + m30 * m12 * m23 - m10 * m23 * m32 - m12 * m20 * m33 - m13 * m22 * m30;
+            float m2c1 = m10 * m21 * m33 + m20 * m31 * m13 + m30 * m11 * m23 - m10 * m23 * m31 - m11 * m20 * m33 - m13 * m21 * m30;
+            float m2d1 = m10 * m21 * m32 + m20 * m31 * m12 + m30 * m11 * m22 - m10 * m22 * m31 - m11 * m20 * m32 - m12 * m21 * m30;
+            float m2a2 = m01 * m22 * m33 + m21 * m32 * m03 + m31 * m02 * m23 - m01 * m23 * m32 - m02 * m21 * m33 - m03 * m22 * m31;
+            float m2b2 = m00 * m22 * m33 + m20 * m32 * m03 + m30 * m02 * m23 - m00 * m23 * m32 - m02 * m20 * m33 - m03 * m22 * m30;
+            float m2c2 = m00 * m21 * m33 + m20 * m31 * m03 + m30 * m01 * m23 - m00 * m23 * m31 - m01 * m20 * m33 - m03 * m21 * m30;
+            float m2d2 = m00 * m21 * m32 + m20 * m31 * m02 + m30 * m01 * m22 - m00 * m22 * m31 - m01 * m20 * m32 - m02 * m21 * m30;
+            float m2a3 = m01 * m12 * m33 + m11 * m32 * m03 + m31 * m02 * m13 - m01 * m13 * m32 - m02 * m11 * m33 - m03 * m12 * m31;
+            float m2b3 = m00 * m12 * m33 + m10 * m32 * m03 + m30 * m02 * m13 - m00 * m13 * m32 - m02 * m10 * m33 - m03 * m12 * m30;
+            float m2c3 = m00 * m11 * m33 + m10 * m31 * m03 + m30 * m01 * m13 - m00 * m13 * m31 - m01 * m10 * m33 - m03 * m11 * m30;
+            float m2d3 = m00 * m11 * m32 + m10 * m31 * m02 + m30 * m01 * m12 - m00 * m12 * m31 - m01 * m10 * m32 - m02 * m11 * m30;
+            float m2a4 = m01 * m12 * m23 + m11 * m22 * m03 + m21 * m02 * m13 - m01 * m13 * m22 - m02 * m11 * m23 - m03 * m12 * m21;
+            float m2b4 = m00 * m12 * m23 + m10 * m22 * m03 + m20 * m02 * m13 - m00 * m13 * m22 - m02 * m10 * m23 - m03 * m12 * m20;
+            float m2c4 = m00 * m11 * m23 + m10 * m21 * m03 + m20 * m01 * m13 - m00 * m13 * m21 - m01 * m10 * m23 - m03 * m11 * m20;
+            float m2d4 = m00 * m11 * m22 + m10 * m21 * m02 + m20 * m01 * m12 - m00 * m12 * m21 - m01 * m10 * m22 - m02 * m11 * m20;
 
             m2b1 = -m2b1; m2d1 = -m2d1;
             m2a2 = -m2a2; m2c2 = -m2c2;
@@ -273,10 +273,10 @@
         public static Matrix4 operator /(float scalar, Matrix4 m) => scalar * m.Inverse();
         public static Matrix4 operator /(Matrix4 a, Matrix4 b) => a * b.Inverse();
 
-        public float this[int x, int y]
+        public float this[int row, int col]
         {
-            get { return matrix[x, y]; }
-            set { matrix[x, y] = value; }
+            get { return matrix[row, col]; }
+            set { matrix[row, col] = value; }
         }
 
         public override string ToString()

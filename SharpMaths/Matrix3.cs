@@ -34,21 +34,21 @@ namespace SharpMaths
                        float m20, float m21, float m22)
         {
             this.matrix = new float[3,3];
-            this[0, 0] = m00; this[1, 0] = m01; this[2, 0] = m02;
-            this[0, 1] = m10; this[1, 1] = m11; this[2, 1] = m12;
-            this[0, 2] = m20; this[1, 2] = m21; this[2, 2] = m22;
+            this[0, 0] = m00; this[0, 1] = m01; this[0, 2] = m02;
+            this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12;
+            this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22;
         }
 
         public static Matrix3 Identity() => new Matrix3(1.0f);
 
         public float Determinant()
         {
-            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0];
-            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1];
-            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2];
+            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
+            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
+            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
 
-            return m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21
-                - m20 * m11 * m02 - m21 * m12 * m00 - m22 * m10 * m01;
+            return m00 * m11 * m22 + m10 * m21 * m02 + m20 * m01 * m12
+                - m02 * m11 * m20 - m12 * m21 * m00 - m22 * m01 * m10;
         }
 
         public Matrix3 Transpose()
@@ -70,23 +70,23 @@ namespace SharpMaths
             if (det == 0)
                 throw new InvalidOperationException("Matrix is not invertible.");
 
-            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0];
-            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1];
-            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2];
+            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
+            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
+            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
 
             Matrix3 result = new Matrix3(0.0f);
 
-            result[0, 0] = (m11 * m22 - m21 * m12) / det;
-            result[0, 1] = (m20 * m12 - m10 * m22) / det;
-            result[0, 2] = (m10 * m21 - m20 * m11) / det;
+            result[0, 0] = (m11 * m22 - m12 * m21) / det;
+            result[0, 1] = (m02 * m21 - m01 * m22) / det;
+            result[0, 2] = (m01 * m12 - m02 * m11) / det;
 
-            result[1, 0] = (m21 * m02 - m01 * m22) / det;
-            result[1, 1] = (m00 * m22 - m20 * m02) / det;
-            result[1, 2] = (m20 * m01 - m00 * m21) / det;
+            result[1, 0] = (m12 * m20 - m10 * m22) / det;
+            result[1, 1] = (m00 * m22 - m02 * m20) / det;
+            result[1, 2] = (m02 * m10 - m00 * m12) / det;
 
-            result[2, 0] = (m01 * m12 - m11 * m02) / det;
-            result[2, 1] = (m10 * m02 - m00 * m12) / det;
-            result[2, 2] = (m00 * m11 - m10 * m01) / det;
+            result[2, 0] = (m10 * m21 - m11 * m20) / det;
+            result[2, 1] = (m01 * m20 - m00 * m21) / det;
+            result[2, 2] = (m00 * m11 - m01 * m10) / det;
 
             return result;
         }
@@ -254,10 +254,10 @@ namespace SharpMaths
         public static Matrix3 operator /(float scalar, Matrix3 m) => scalar * m.Inverse();
         public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();
 
-        public float this[int x, int y]
+        public float this[int row, int col]
         {
-            get { return matrix[x, y]; }
-            set { matrix[x, y] = value; }
+            get { return matrix[row, col]; }
+            set { matrix[row, col] = value; }
         }
 
         public override string ToString()

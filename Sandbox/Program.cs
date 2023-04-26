@@ -12,7 +12,7 @@ namespace Sandbox
                 * Matrix4.Rotation(45.0f, new Vector3(0.0f, 0.0f, 1.0f))
                 * Matrix4.Scale(new Vector3(2.5f, 2.5f, 1.5f));
 
-            Console.WriteLine(mat4);
+            Console.WriteLine(mat4 * mat4.Inverse());
 
             Console.WriteLine("\nModifying an existing 4x4 matrix");
 
@@ -29,7 +29,7 @@ namespace Sandbox
                 * Matrix3.Rotation(45.0f, new Vector3(0.0f, 0.0f, 1.0f))
                 * Matrix3.Scale(new Vector2(2.5f, 2.5f));
 
-            Console.WriteLine(mat3);
+            Console.WriteLine(mat3 * mat3.Inverse());
 
             Console.WriteLine("\nModifying an existing 3x3 matrix");
 
