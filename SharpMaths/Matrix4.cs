@@ -106,27 +106,21 @@
             return result;
         }
 
-        public void SetTranslation(Vector3 v)
-        {
-            Matrix4 translation = Translation(v);
-            this *= translation;
-        }
+        public void SetTranslation(Vector3 v) => this *= Translation(v);
+        public void SetTranslation(float x, float y, float z) => SetTranslation(new Vector3(x, y, z));
 
-        public void SetRotation(float angle, Vector3 axis)
-        {
-            Matrix4 rotation = Rotation(angle, axis);
-            this *= rotation;
-        }
+        public void SetRotation(float angle, Vector3 axis) => this *= Rotation(angle, axis);
+        public void SetRotation(float angle, float x, float y, float z) => SetRotation(angle, new Vector3(x, y, z));
+        public void SetRotationX(float angle) => SetRotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
+        public void SetRotationY(float angle) => SetRotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
+        public void SetRotationZ(float angle) => SetRotation(angle, new Vector3(0.0f, 0.0f, 1.0f));
 
-        public void SetScale(Vector3 v)
-        {
-            Matrix4 scale = Scale(v);
-            this *= scale;
-        }
+        public void SetScale(Vector3 v) => this *= Scale(v);
+        public void SetScale(float x, float y, float z) => SetScale(new Vector3(x, y, z));
 
         public static Matrix4 Translation(Vector3 v)
         {
-            Matrix4 translation = new Matrix4(1.0f);
+            Matrix4 translation = new Matrix4();
             translation[3, 0] = v.x;
             translation[3, 1] = v.y;
             translation[3, 2] = v.z;
@@ -134,19 +128,9 @@
         }
         public static Matrix4 Translation(float x, float y, float z) => Translation(new Vector3(x, y, z));
 
-        public static Matrix4 Scale(Vector3 v)
-        {
-            Matrix4 scale = new Matrix4(1.0f);
-            scale[0, 0] = v.x;
-            scale[1, 1] = v.y;
-            scale[2, 2] = v.z;
-            return scale;
-        }
-        public static Matrix4 Scaling(float x, float y, float z) => Scale(new Vector3(x, y, z));
-
         public static Matrix4 Rotation(float angle, Vector3 axis)
         {
-            Matrix4 rotation = new Matrix4(1.0f);
+            Matrix4 rotation = new Matrix4();
 
             float sin = (float)Math.Sin(angle);
             float cos = (float)Math.Cos(angle);
@@ -173,10 +157,21 @@
 
             return rotation;
         }
+        public static Matrix4 Rotation(float angle, float x, float y, float z) => Rotation(angle, new Vector3(x, y, z));
 
         public static Matrix4 RotationX(float angle) => Rotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
         public static Matrix4 RotationY(float angle) => Rotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
         public static Matrix4 RotationZ(float angle) => Rotation(angle, new Vector3(0.0f, 0.0f, 1.0f));
+
+        public static Matrix4 Scale(Vector3 v)
+        {
+            Matrix4 scale = new Matrix4();
+            scale[0, 0] = v.x;
+            scale[1, 1] = v.y;
+            scale[2, 2] = v.z;
+            return scale;
+        }
+        public static Matrix4 Scale(float x, float y, float z) => Scale(new Vector3(x, y, z));
 
         public static Matrix4 operator +(Matrix4 m, float scalar)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,12 +43,12 @@ namespace SharpMaths
 
         public float Determinant()
         {
-            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
-            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
-            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
+            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0];
+            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1];
+            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2];
 
-            return m00 * m11 * m22 + m10 * m21 * m02 + m20 * m01 * m12
-                - m02 * m11 * m20 - m12 * m21 * m00 - m22 * m01 * m10;
+            return m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21
+                - m20 * m11 * m02 - m21 * m12 * m00 - m22 * m10 * m01;
         }
 
         public Matrix3 Transpose()
@@ -69,26 +70,90 @@ namespace SharpMaths
             if (det == 0)
                 throw new InvalidOperationException("Matrix is not invertible.");
 
-            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
-            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
-            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
+            float m00 = matrix[0, 0], m01 = matrix[1, 0], m02 = matrix[2, 0];
+            float m10 = matrix[0, 1], m11 = matrix[1, 1], m12 = matrix[2, 1];
+            float m20 = matrix[0, 2], m21 = matrix[1, 2], m22 = matrix[2, 2];
 
             Matrix3 result = new Matrix3(0.0f);
 
-            result[0, 0] = (m11 * m22 - m12 * m21) / det;
-            result[0, 1] = (m02 * m21 - m01 * m22) / det;
-            result[0, 2] = (m01 * m12 - m02 * m11) / det;
+            result[0, 0] = (m11 * m22 - m21 * m12) / det;
+            result[0, 1] = (m20 * m12 - m10 * m22) / det;
+            result[0, 2] = (m10 * m21 - m20 * m11) / det;
 
-            result[1, 0] = (m12 * m20 - m10 * m22) / det;
-            result[1, 1] = (m00 * m22 - m02 * m20) / det;
-            result[1, 2] = (m02 * m10 - m00 * m12) / det;
+            result[1, 0] = (m21 * m02 - m01 * m22) / det;
+            result[1, 1] = (m00 * m22 - m20 * m02) / det;
+            result[1, 2] = (m20 * m01 - m00 * m21) / det;
 
-            result[2, 0] = (m10 * m21 - m11 * m20) / det;
-            result[2, 1] = (m01 * m20 - m00 * m21) / det;
-            result[2, 2] = (m00 * m11 - m01 * m10) / det;
+            result[2, 0] = (m01 * m12 - m11 * m02) / det;
+            result[2, 1] = (m10 * m02 - m00 * m12) / det;
+            result[2, 2] = (m00 * m11 - m10 * m01) / det;
 
             return result;
         }
+
+        public void SetTranslation(Vector2 v) => this *= Translation(v);
+        public void SetTranslation(float x, float y) => SetTranslation(new Vector2(x, y));
+
+        public void SetRotation(float angle, Vector3 axis) => this *= Rotation(angle, axis);
+        public void SetRotation(float angle, float x, float y, float z) => SetRotation(angle, new Vector3(x, y, z));
+        public void SetRotationX(float angle) => SetRotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
+        public void SetRotationY(float angle) => SetRotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
+        public void SetRotationZ(float angle) => SetRotation(angle, new Vector3(0.0f, 0.0f, 1.0f));
+
+        public void SetScale(Vector2 v) => this *= Scale(v);
+        public void SetScale(float x, float y) => SetScale(new Vector2(x, y));
+
+        public static Matrix3 Translation(Vector2 v)
+        {
+            Matrix3 translation = new Matrix3();
+            translation[2, 0] = v.x;
+            translation[2, 1] = v.y;
+            return translation;
+        }
+
+        public static Matrix3 Rotation(float angle, Vector3 axis)
+        {
+            Matrix3 rotation = new Matrix3();
+
+            float sin = (float)Math.Sin(angle);
+            float cos = (float)Math.Cos(angle);
+
+            axis.Normalize();
+
+            Vector3 omc = (1.0f - cos) * axis;
+
+            float x = axis.x;
+            float y = axis.y;
+            float z = axis.z;
+
+            rotation[0, 0] = cos + omc.x * x;
+            rotation[1, 0] = omc.y * x - sin * z;
+            rotation[2, 0] = omc.z * x + sin * y;
+
+            rotation[0, 1] = omc.x * y + sin * z;
+            rotation[1, 1] = cos + omc.y * y;
+            rotation[2, 1] = omc.z * y - sin * x;
+
+            rotation[0, 2] = omc.x * z - sin * y;
+            rotation[1, 2] = omc.y * z + sin * x;
+            rotation[2, 2] = cos + omc.z * z;
+
+            return rotation;
+        }
+        public static Matrix3 Rotation(float angle, float x, float y, float z) => Rotation(angle, new Vector3(x, y, z));
+
+        public static Matrix3 RotationX(float angle) => Rotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
+        public static Matrix3 RotationY(float angle) => Rotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
+        public static Matrix3 RotationZ(float angle) => Rotation(angle, new Vector3(0.0f, 0.0f, 1.0f));
+
+        public static Matrix3 Scale(Vector2 v)
+        {
+            Matrix3 scale = new Matrix3();
+            scale[0, 0] = v.x;
+            scale[1, 1] = v.y;
+            return scale;
+        }
+        public static Matrix3 Scale(float x, float y) => Scale(new Vector2(x, y));
 
         public static Matrix3 operator +(Matrix3 m, float scalar)
         {
