@@ -144,15 +144,15 @@
             float z = axis.z;
 
             rotation[0, 0] = cos + omc.x * x;
-            rotation[1, 0] = omc.y * x - sin * z;
-            rotation[2, 0] = omc.z * x + sin * y;
-
             rotation[0, 1] = omc.x * y + sin * z;
-            rotation[1, 1] = cos + omc.y * y;
-            rotation[2, 1] = omc.z * y - sin * x;
-
             rotation[0, 2] = omc.x * z - sin * y;
+
+            rotation[1, 0] = omc.y * x - sin * z;
+            rotation[1, 1] = cos + omc.y * y;
             rotation[1, 2] = omc.y * z + sin * x;
+
+            rotation[2, 0] = omc.z * x + sin * y;
+            rotation[2, 1] = omc.z * y - sin * x;
             rotation[2, 2] = cos + omc.z * z;
 
             return rotation;
@@ -187,11 +187,11 @@
         public static Matrix4 operator +(Matrix4 a, Matrix4 b)
         {
             var result = new Matrix4();
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
+                for (int col = 0; col < 3; col++)
                 {
-                    result[x, y] = a[x, y] + b[x, y];
+                    result[row, col] = a[row, col] + b[row, col];
                 }
             }
             return result;
@@ -211,11 +211,11 @@
         public static Matrix4 operator -(Matrix4 a, Matrix4 b)
         {
             var result = new Matrix4();
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
+                for (int col = 0; col < 3; col++)
                 {
-                    result[x, y] = a[x, y] - b[x, y];
+                    result[row, col] = a[row, col] - b[row, col];
                 }
             }
             return result;
@@ -235,14 +235,14 @@
         public static Matrix4 operator *(Matrix4 a, Matrix4 b)
         {
             Matrix4 result = new Matrix4(0.0f);
-            for (int i = 0; i < 4; i++)
+            for (int row = 0; row < 4; row++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int col = 0; col < 4; col++)
                 {
-                    result[i, j] = 0;
-                    for (int k = 0; k < 4; k++)
+                    result[row, col] = 0;
+                    for (int i = 0; i < 4; i++)
                     {
-                        result[i, j] += a[k, j] * b[i, k];
+                        result[row, col] += a[i, col] * b[row, i];
                     }
                 }
             }
@@ -285,19 +285,19 @@
         public override string ToString()
         {
             string result = "";
-            for (int x = 0; x < 4; x++)
+            for (int row = 0; row < 4; row++)
             {
                 result += "[ ";
-                for (int y = 0; y < 4; y++)
+                for (int col = 0; col < 4; col++)
                 {
-                    result += this[x, y].ToString("F2");
-                    if (y < 3)
+                    result += this[row, col].ToString("F2");
+                    if (col < 3)
                     {
                         result += ", ";
                     }
                 }
                 result += " ]";
-                if (x < 3)
+                if (row < 3)
                 {
                     result += '\n';
                 }

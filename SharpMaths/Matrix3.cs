@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SharpMaths
+﻿namespace SharpMaths
 {
     public struct Matrix3
     {
@@ -193,11 +186,11 @@ namespace SharpMaths
         public static Matrix3 operator -(Matrix3 a, Matrix3 b)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
+                for (int col = 0; col < 3; col++)
                 {
-                    result[x, y] = a[x, y] - b[x, y];
+                    result[row, col] = a[row, col] - b[row, col];
                 }
             }
             return result;
@@ -216,14 +209,14 @@ namespace SharpMaths
         public static Matrix3 operator *(Matrix3 a, Matrix3 b)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int i = 0; i < 3; i++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int col = 0; col < 3; col++)
                 {
-                    result[i, j] = 0;
-                    for (int k = 0; k < 3; k++)
+                    result[row, col] = 0;
+                    for (int i = 0; i < 3; i++)
                     {
-                        result[i, j] += a[k, j] * b[i, k];
+                        result[row, col] += a[i, col] * b[row, i];
                     }
                 }
             }
@@ -265,19 +258,19 @@ namespace SharpMaths
         public override string ToString()
         {
             string result = "";
-            for (int i = 0; i < 3; i++)
+            for (int row = 0; row < 3; row++)
             {
                 result += "[ ";
-                for (int j = 0; j < 3; j++)
+                for (int col = 0; col < 3; col++)
                 {
-                    result += this[i, j].ToString("F2");
-                    if (j < 2)
+                    result += this[row, col].ToString("F2");
+                    if (col < 2)
                     {
                         result += ", ";
                     }
                 }
                 result += " ]";
-                if (i < 2)
+                if (row < 2)
                 {
                     result += '\n';
                 }
