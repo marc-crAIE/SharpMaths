@@ -176,12 +176,9 @@
         public static Matrix4 operator +(Matrix4 m, float scalar)
         {
             var result = new Matrix4();
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 4; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] + scalar;
-                }
+                result[row] = m[row] + scalar;
             }
             return result;
         }
@@ -203,12 +200,9 @@
         public static Matrix4 operator -(Matrix4 m, float scalar)
         {
             var result = new Matrix4();
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 4; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] - scalar;
-                }
+                result[row] = m[row] - scalar;
             }
             return result;
         }
@@ -230,12 +224,9 @@
         public static Matrix4 operator *(Matrix4 m, float scalar)
         {
             var result = new Matrix4();
-            for (int y = 0; y < 4; y++)
+            for (int row = 0; row < 4; row++)
             {
-                for (int x = 0; x < 4; x++)
-                {
-                    result[x, y] = m[x, y] * scalar;
-                }
+                result[row] = m[row] * scalar;
             }
             return result;
         }
@@ -261,12 +252,9 @@
         public static Matrix4 operator /(Matrix4 m, float scalar)
         {
             var result = new Matrix4();
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 4; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] / scalar;
-                }
+                result[row] = m[row] / scalar;
             }
             return result;
         }

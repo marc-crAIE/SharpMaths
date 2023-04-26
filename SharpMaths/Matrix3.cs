@@ -158,12 +158,9 @@ namespace SharpMaths
         public static Matrix3 operator +(Matrix3 m, float scalar)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] + scalar;
-                }
+                result[row] = m[row] + scalar;
             }
             return result;
         }
@@ -185,12 +182,9 @@ namespace SharpMaths
         public static Matrix3 operator -(Matrix3 m, float scalar)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] - scalar;
-                }
+                result[row] = m[row] - scalar;
             }
             return result;
         }
@@ -212,12 +206,9 @@ namespace SharpMaths
         public static Matrix3 operator *(Matrix3 m, float scalar)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] * scalar;
-                }
+                result[row] = m[row] * scalar;
             }
             return result;
         }
@@ -242,12 +233,9 @@ namespace SharpMaths
         public static Matrix3 operator /(Matrix3 m, float scalar)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = m[x, y] / scalar;
-                }
+                result[row] = m[row] / scalar;
             }
             return result;
         }
