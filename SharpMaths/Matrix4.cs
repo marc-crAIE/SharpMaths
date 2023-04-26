@@ -273,6 +273,21 @@
         public static Matrix4 operator /(float scalar, Matrix4 m) => scalar * m.Inverse();
         public static Matrix4 operator /(Matrix4 a, Matrix4 b) => a * b.Inverse();
 
+        public Vector4 this[int row]
+        {
+            get
+            {
+                return new Vector4(matrix[row, 0], matrix[row, 1], matrix[row, 2], matrix[row, 3]);
+            }
+            set
+            {
+                matrix[row, 0] = value.x;
+                matrix[row, 1] = value.y;
+                matrix[row, 2] = value.z;
+                matrix[row, 3] = value.w;
+            }
+        }
+
         public float this[int row, int col]
         {
             get { return matrix[row, col]; }

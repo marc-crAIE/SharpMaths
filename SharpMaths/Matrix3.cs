@@ -254,6 +254,20 @@ namespace SharpMaths
         public static Matrix3 operator /(float scalar, Matrix3 m) => scalar * m.Inverse();
         public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();
 
+        public Vector3 this[int row]
+        {
+            get
+            {
+                return new Vector3(matrix[row, 0], matrix[row, 1], matrix[row, 2]);
+            }
+            set
+            {
+                matrix[row, 0] = value.x;
+                matrix[row, 1] = value.y;
+                matrix[row, 2] = value.z;
+            }
+        }
+
         public float this[int row, int col]
         {
             get { return matrix[row, col]; }
