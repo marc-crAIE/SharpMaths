@@ -6,16 +6,13 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            Matrix4 matrix4 = new Matrix4(new float[,] { { 1, 0, 2, 0 }, { 0, 3, 0, 4 }, { 0, 0, 5, 0 }, { 6, 0, 0, 7 } });
-            Vector4 vector4 = new Vector4(2, 5, 1, 8);
+            Colour colour = new Colour();
+            colour.alpha = 0xFF;
+            colour.green = 0xFF;
+            colour = new Vector3(0.75f, 0.5f, 0.25f);
 
-            Console.WriteLine(matrix4 * vector4);
-            Console.WriteLine();
-
-            Matrix3 matrix3 = new Matrix3(new float[,] { { 1, 0, 2 }, { 0, 3, 0 }, { 0, 0, 5 } });
-            Vector3 vector3 = new Vector3(2, 5, 1);
-
-            Console.WriteLine(matrix3 * vector3);
+            Console.WriteLine(colour);
+            Console.WriteLine(colour.green);
         }
     }
 }
