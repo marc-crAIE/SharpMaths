@@ -73,6 +73,35 @@ namespace SharpMaths
 
         #endregion
 
+        #region Accessors
+
+        public byte this[int i]
+        {
+            get
+            {
+                switch (i)
+                {
+                    case 0: return red;
+                    case 1: return green;
+                    case 2: return blue;
+                    case 3: return alpha;
+                }
+                return 0;
+            }
+            set
+            {
+                switch (i)
+                {
+                    case 0: red = value; break;
+                    case 1: green = value; break;
+                    case 2: blue = value; break;
+                    case 3: alpha = value; break;
+                }
+            }
+        }
+
+        #endregion
+
         #region Type Conversions
 
         public static implicit operator Vector3(Colour colour) => new Vector3(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f);
