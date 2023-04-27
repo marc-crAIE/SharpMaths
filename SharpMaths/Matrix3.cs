@@ -168,10 +168,11 @@
 
         public static Matrix3 operator +(Matrix3 m, float scalar)
         {
-            m[0] += scalar;
-            m[1] += scalar;
-            m[2] += scalar;
-            return m;
+            Matrix3 result = new Matrix3();
+            result[0] = m[0] + scalar;
+            result[1] = m[1] + scalar;
+            result[2] = m[2] + scalar;
+            return result;
         }
         public static Matrix3 operator +(float scalar, Matrix3 m) => m + scalar;
 
@@ -186,10 +187,11 @@
 
         public static Matrix3 operator -(Matrix3 m, float scalar)
         {
-            m[0] -= scalar;
-            m[1] -= scalar;
-            m[2] -= scalar;
-            return m;
+            Matrix3 result = new Matrix3();
+            result[0] = m[0] - scalar;
+            result[1] = m[1] - scalar;
+            result[2] = m[2] - scalar;
+            return result;
         }
         public static Matrix3 operator -(float scalar, Matrix3 m) => m - scalar;
 
@@ -205,10 +207,11 @@
 
         public static Matrix3 operator *(Matrix3 m, float scalar)
         {
-            m[0] *= scalar;
-            m[1] *= scalar;
-            m[2] *= scalar;
-            return m;
+            Matrix3 result = new Matrix3();
+            result[0] = m[0] * scalar;
+            result[1] = m[1] * scalar;
+            result[2] = m[2] * scalar;
+            return result;
         }
         public static Matrix3 operator *(float scalar, Matrix3 m) => m * scalar;
         public static Matrix3 operator *(Matrix3 a, Matrix3 b)
@@ -222,13 +225,17 @@
 
         public static Matrix3 operator /(Matrix3 m, float scalar)
         {
-            m[0] /= scalar;
-            m[1] /= scalar;
-            m[2] /= scalar;
-            return m;
+            Matrix3 result = new Matrix3();
+            result[0] = m[0] / scalar;
+            result[1] = m[1] / scalar;
+            result[2] = m[2] / scalar;
+            return result;
         }
         public static Matrix3 operator /(float scalar, Matrix3 m) => scalar * m.Inverse();
         public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();
+
+        public static bool operator ==(Matrix3 a, Matrix3 b) => (a[0] == b[0]) && (a[1] == b[1]) && (a[2] == b[2]);
+        public static bool operator !=(Matrix3 a, Matrix3 b) => !(a == b);
 
         public Vector3 this[int row]
         {

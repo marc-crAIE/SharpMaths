@@ -83,6 +83,9 @@ namespace SharpMaths
         public static Vector2 operator /(Vector2 v1, Vector3 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
         public static Vector2 operator /(Vector2 v1, Vector4 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
 
+        public static bool operator ==(Vector2 v1, Vector2 v2) => (v1.x == v2.x) && (v1.y == v2.y);
+        public static bool operator !=(Vector2 v1, Vector2 v2) => !(v1 == v2);
+
         public float this[int i]
         {
             get

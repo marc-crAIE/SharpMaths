@@ -125,12 +125,12 @@
             m2b3 = -m2b3; m2d3 = -m2d3;
             m2a4 = -m2a4; m2c4 = -m2c4;
 
-            result[0, 0] = m2a1 / det; result[1, 0] = m2b1 / det; result[2, 0] = m2c1 / det; result[3, 0] = m2d1 / det;
-            result[0, 1] = m2a2 / det; result[1, 1] = m2b2 / det; result[2, 1] = m2c2 / det; result[3, 1] = m2d2 / det;
-            result[0, 2] = m2a3 / det; result[1, 2] = m2b3 / det; result[2, 2] = m2c3 / det; result[3, 2] = m2d3 / det;
-            result[0, 3] = m2a4 / det; result[1, 3] = m2b4 / det; result[2, 3] = m2c4 / det; result[3, 3] = m2d4 / det;
+            result[0, 0] = m2a1; result[1, 0] = m2b1; result[2, 0] = m2c1; result[3, 0] = m2d1;
+            result[0, 1] = m2a2; result[1, 1] = m2b2; result[2, 1] = m2c2; result[3, 1] = m2d2;
+            result[0, 2] = m2a3; result[1, 2] = m2b3; result[2, 2] = m2c3; result[3, 2] = m2d3;
+            result[0, 3] = m2a4; result[1, 3] = m2b4; result[2, 3] = m2c4; result[3, 3] = m2d4;
 
-            return result;
+            return result / det;
         }
 
         public void SetTranslation(Vector3 v) => this *= Translation(v);
@@ -202,11 +202,12 @@
 
         public static Matrix4 operator +(Matrix4 m, float scalar)
         {
-            m[0] += scalar;
-            m[1] += scalar;
-            m[2] += scalar;
-            m[3] += scalar;
-            return m;
+            Matrix4 result = new Matrix4();
+            result[0] = m[0] + scalar;
+            result[1] = m[1] + scalar;
+            result[2] = m[2] + scalar;
+            result[3] = m[3] + scalar;
+            return result;
         }
         public static Matrix4 operator +(float scalar, Matrix4 m) => m + scalar;
 
@@ -222,11 +223,12 @@
 
         public static Matrix4 operator -(Matrix4 m, float scalar)
         {
-            m[0] -= scalar;
-            m[1] -= scalar;
-            m[2] -= scalar;
-            m[3] -= scalar;
-            return m;
+            Matrix4 result = new Matrix4();
+            result[0] = m[0] - scalar;
+            result[1] = m[1] - scalar;
+            result[2] = m[2] - scalar;
+            result[3] = m[3] - scalar;
+            return result;
         }
         public static Matrix4 operator -(float scalar, Matrix4 m) => m - scalar;
 
@@ -242,11 +244,12 @@
 
         public static Matrix4 operator *(Matrix4 m, float scalar)
         {
-            m[0] *= scalar;
-            m[1] *= scalar;
-            m[2] *= scalar;
-            m[3] *= scalar;
-            return m;
+            Matrix4 result = new Matrix4();
+            result[0] = m[0] * scalar;
+            result[1] = m[1] * scalar;
+            result[2] = m[2] * scalar;
+            result[3] = m[3] * scalar;
+            return result;
         }
         public static Matrix4 operator *(float scalar, Matrix4 m) => m * scalar;
 
@@ -262,14 +265,18 @@
 
         public static Matrix4 operator /(Matrix4 m, float scalar)
         {
-            m[0] /= scalar;
-            m[1] /= scalar;
-            m[2] /= scalar;
-            m[3] /= scalar;
-            return m;
+            Matrix4 result = new Matrix4();
+            result[0] = m[0] / scalar;
+            result[1] = m[1] / scalar;
+            result[2] = m[2] / scalar;
+            result[3] = m[3] / scalar;
+            return result;
         }
         public static Matrix4 operator /(float scalar, Matrix4 m) => scalar * m.Inverse();
         public static Matrix4 operator /(Matrix4 a, Matrix4 b) => a * b.Inverse();
+
+        public static bool operator ==(Matrix4 a, Matrix4 b) => (a[0] == b[0]) && (a[1] == b[1]) && (a[2] == b[2]) && (a[3] == b[3]);
+        public static bool operator !=(Matrix4 a, Matrix4 b) => !(a == b);
 
         public Vector4 this[int row]
         {
