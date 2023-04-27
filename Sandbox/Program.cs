@@ -6,13 +6,13 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            Colour colour = new Colour();
-            colour.alpha = 0xFF;
-            colour.green = 0xFF;
-            colour = new Vector3(0.75f, 0.5f, 0.25f);
+            Matrix4 mat4 = Matrix4.Translation(new Vector3(3.5f, 2.8f, 9.4f))
+                * Matrix4.Rotation(45.0f, new Vector3(1.0f, 0.0f, 0.0f))
+                * Matrix4.Scale(new Vector3(2.5f, 2.5f, 1.5f));
 
-            Console.WriteLine(colour);
-            Console.WriteLine(colour.green);
+            Console.WriteLine(mat4);
+
+            Console.Write(mat4.m0 * 2);
         }
     }
 }

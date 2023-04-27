@@ -2,7 +2,35 @@
 {
     public struct Matrix4
     {
-        public float[,] matrix;
+        private float[,] matrix;
+
+        // First row
+        public Vector4 m0 { get => this[0]; set => this[0] = value; }
+        public float m00 { get => matrix[0, 0]; set => matrix[0, 0] = value; }
+        public float m01 { get => matrix[0, 1]; set => matrix[0, 1] = value; }
+        public float m02 { get => matrix[0, 2]; set => matrix[0, 2] = value; }
+        public float m03 { get => matrix[0, 3]; set => matrix[0, 3] = value; }
+
+        // Second row
+        public Vector4 m1 { get => this[1]; set => this[1] = value; }
+        public float m10 { get => matrix[1, 0]; set => matrix[1, 0] = value; }
+        public float m11 { get => matrix[1, 1]; set => matrix[1, 1] = value; }
+        public float m12 { get => matrix[1, 2]; set => matrix[1, 2] = value; }
+        public float m13 { get => matrix[1, 3]; set => matrix[1, 3] = value; }
+
+        // Third row
+        public Vector4 m2 { get => this[2]; set => this[2] = value; }
+        public float m20 { get => matrix[2, 0]; set => matrix[2, 0] = value; }
+        public float m21 { get => matrix[2, 1]; set => matrix[2, 1] = value; }
+        public float m22 { get => matrix[2, 2]; set => matrix[2, 2] = value; }
+        public float m23 { get => matrix[2, 3]; set => matrix[2, 3] = value; }
+
+        // Forth row
+        public Vector4 m3 { get => this[3]; set => this[3] = value; }
+        public float m30 { get => matrix[3, 0]; set => matrix[3, 0] = value; }
+        public float m31 { get => matrix[3, 1]; set => matrix[3, 1] = value; }
+        public float m32 { get => matrix[3, 2]; set => matrix[3, 2] = value; }
+        public float m33 { get => matrix[3, 3]; set => matrix[3, 3] = value; }
 
         public Matrix4() : this(1.0f) { }
 
@@ -27,7 +55,7 @@
                        float m10, float m11, float m12, float m13,
                        float m20, float m21, float m22, float m23)
         {
-            this.matrix = new float[3, 3];
+            this.matrix = new float[4, 4];
             this[0, 0] = m00; this[0, 1] = m01; this[0, 2] = m02; this[0, 3] = m03;
             this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12; this[1, 3] = m13;
             this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22; this[2, 3] = m23;
@@ -37,11 +65,6 @@
 
         public float Determinant()
         {
-            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2], m03 = matrix[0, 3];
-            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2], m13 = matrix[1, 3];
-            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2], m23 = matrix[2, 3];
-            float m30 = matrix[3, 0], m31 = matrix[3, 1], m32 = matrix[3, 2], m33 = matrix[3, 3];
-
             float q = m11 * m22 * m33 + m21 * m32 * m13 + m31 * m12 * m23 - m11 * m23 * m32 - m12 * m21 * m33 - m13 * m22 * m31;
             float r = m10 * m22 * m33 + m20 * m32 * m13 + m30 * m12 * m23 - m10 * m23 * m32 - m12 * m20 * m33 - m13 * m22 * m30;
             float s = m10 * m21 * m33 + m20 * m31 * m13 + m30 * m11 * m23 - m10 * m23 * m31 - m11 * m20 * m33 - m13 * m21 * m30;
@@ -68,11 +91,6 @@
             float det = Determinant();
             if (det == 0)
                 throw new InvalidOperationException("Matrix is not invertible.");
-
-            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2], m03 = matrix[0, 3];
-            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2], m13 = matrix[1, 3];
-            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2], m23 = matrix[2, 3];
-            float m30 = matrix[3, 0], m31 = matrix[3, 1], m32 = matrix[3, 2], m33 = matrix[3, 3];
 
             Matrix4 result = new Matrix4(0.0f);
 

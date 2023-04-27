@@ -49,6 +49,18 @@ namespace SharpMaths
             this.colour = (uint)r << 24 | (uint)g << 16 | (uint)b << 8 | a;
         }
 
+        public byte GetRed() => red;
+        public void SetRed(byte red) => this.red = red;
+
+        public byte GetGreen() => green;
+        public void SetGreen(byte green) => this.green = green;
+
+        public byte GetBlue() => blue;
+        public void SetBlue(byte blue) => this.blue = blue;
+
+        public byte GetAlpha() => alpha;
+        public void SetAlpha(byte alpha) => this.alpha = alpha;
+
         public static implicit operator Vector3(Colour colour) => new Vector3(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f);
         public static implicit operator Vector4(Colour colour) => new Vector4(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f, colour.alpha / 255.0f);
 

@@ -2,7 +2,25 @@
 {
     public struct Matrix3
     {
-        public float[,] matrix;
+        private float[,] matrix;
+
+        // First row
+        public Vector3 m0 { get => this[0]; set => this[0] = value; }
+        public float m00 { get => matrix[0, 0]; set => matrix[0, 0] = value; }
+        public float m01 { get => matrix[0, 1]; set => matrix[0, 1] = value; }
+        public float m02 { get => matrix[0, 2]; set => matrix[0, 2] = value; }
+
+        // Second row
+        public Vector3 m1 { get => this[1]; set => this[1] = value; }
+        public float m10 { get => matrix[1, 0]; set => matrix[1, 0] = value; }
+        public float m11 { get => matrix[1, 1]; set => matrix[1, 1] = value; }
+        public float m12 { get => matrix[1, 2]; set => matrix[1, 2] = value; }
+
+        // Third row
+        public Vector3 m2 { get => this[2]; set => this[2] = value; }
+        public float m20 { get => matrix[2, 0]; set => matrix[2, 0] = value; }
+        public float m21 { get => matrix[2, 1]; set => matrix[2, 1] = value; }
+        public float m22 { get => matrix[2, 2]; set => matrix[2, 2] = value; }
 
         public Matrix3() : this(1.0f) { }
 
@@ -36,10 +54,6 @@
 
         public float Determinant()
         {
-            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
-            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
-            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
-
             return m00 * m11 * m22 + m10 * m21 * m02 + m20 * m01 * m12
                 - m02 * m11 * m20 - m12 * m21 * m00 - m22 * m01 * m10;
         }
@@ -62,10 +76,6 @@
             float det = Determinant();
             if (det == 0)
                 throw new InvalidOperationException("Matrix is not invertible.");
-
-            float m00 = matrix[0, 0], m01 = matrix[0, 1], m02 = matrix[0, 2];
-            float m10 = matrix[1, 0], m11 = matrix[1, 1], m12 = matrix[1, 2];
-            float m20 = matrix[2, 0], m21 = matrix[2, 1], m22 = matrix[2, 2];
 
             Matrix3 result = new Matrix3(0.0f);
 
