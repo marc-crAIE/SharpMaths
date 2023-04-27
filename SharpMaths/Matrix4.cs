@@ -51,14 +51,23 @@
             this.matrix = m;
         }
 
+        public Matrix4(Vector4 m0, Vector4 m1, Vector4 m2, Vector4 m3)
+        {
+            this.matrix = new float[4, 4];
+            this[0] = m0;
+            this[1] = m1;
+            this[2] = m2;
+            this[3] = m3;
+        }
+
         public Matrix4(float m00, float m01, float m02, float m03,
                        float m10, float m11, float m12, float m13,
                        float m20, float m21, float m22, float m23)
         {
             this.matrix = new float[4, 4];
-            this[0, 0] = m00; this[0, 1] = m01; this[0, 2] = m02; this[0, 3] = m03;
-            this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12; this[1, 3] = m13;
-            this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22; this[2, 3] = m23;
+            matrix[0, 0] = m00; matrix[0, 1] = m01; matrix[0, 2] = m02; matrix[0, 3] = m03;
+            matrix[1, 0] = m10; matrix[1, 1] = m11; matrix[1, 2] = m12; matrix[1, 3] = m13;
+            matrix[2, 0] = m20; matrix[2, 1] = m21; matrix[2, 2] = m22; matrix[2, 3] = m23;
         }
 
         public static Matrix4 Identity() => new Matrix4(1.0f);
@@ -193,88 +202,71 @@
 
         public static Matrix4 operator +(Matrix4 m, float scalar)
         {
-            var result = new Matrix4();
-            for (int row = 0; row < 4; row++)
-            {
-                result[row] = m[row] + scalar;
-            }
-            return result;
+            m[0] += scalar;
+            m[1] += scalar;
+            m[2] += scalar;
+            m[3] += scalar;
+            return m;
         }
         public static Matrix4 operator +(float scalar, Matrix4 m) => m + scalar;
 
         public static Matrix4 operator +(Matrix4 a, Matrix4 b)
         {
             var result = new Matrix4();
-            for (int row = 0; row < 3; row++)
-            {
-                for (int col = 0; col < 3; col++)
-                {
-                    result[row, col] = a[row, col] + b[row, col];
-                }
-            }
+            result[0] = a[0] + b[0];
+            result[1] = a[1] + b[1];
+            result[2] = a[2] + b[2];
+            result[3] = a[3] + b[3];
             return result;
         }
 
         public static Matrix4 operator -(Matrix4 m, float scalar)
         {
-            var result = new Matrix4();
-            for (int row = 0; row < 4; row++)
-            {
-                result[row] = m[row] - scalar;
-            }
-            return result;
+            m[0] -= scalar;
+            m[1] -= scalar;
+            m[2] -= scalar;
+            m[3] -= scalar;
+            return m;
         }
         public static Matrix4 operator -(float scalar, Matrix4 m) => m - scalar;
 
         public static Matrix4 operator -(Matrix4 a, Matrix4 b)
         {
             var result = new Matrix4();
-            for (int row = 0; row < 3; row++)
-            {
-                for (int col = 0; col < 3; col++)
-                {
-                    result[row, col] = a[row, col] - b[row, col];
-                }
-            }
+            result[0] = a[0] - b[0];
+            result[1] = a[1] - b[1];
+            result[2] = a[2] - b[2];
+            result[3] = a[3] - b[3];
             return result;
         }
 
         public static Matrix4 operator *(Matrix4 m, float scalar)
         {
-            var result = new Matrix4();
-            for (int row = 0; row < 4; row++)
-            {
-                result[row] = m[row] * scalar;
-            }
-            return result;
+            m[0] *= scalar;
+            m[1] *= scalar;
+            m[2] *= scalar;
+            m[3] *= scalar;
+            return m;
         }
         public static Matrix4 operator *(float scalar, Matrix4 m) => m * scalar;
 
         public static Matrix4 operator *(Matrix4 a, Matrix4 b)
         {
             Matrix4 result = new Matrix4(0.0f);
-            for (int row = 0; row < 4; row++)
-            {
-                for (int col = 0; col < 4; col++)
-                {
-                    result[row, col] = 0;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        result[row, col] += a[row, i] * b[i, col];
-                    }
-                }
-            }
+            result[0] = a[0] * b[0, 0] + a[1] * b[0, 1] + a[2] * b[0, 2] + a[3] * b[0, 3];
+            result[1] = a[0] * b[1, 0] + a[1] * b[1, 1] + a[2] * b[1, 2] + a[3] * b[1, 3];
+            result[2] = a[0] * b[2, 0] + a[1] * b[2, 1] + a[2] * b[2, 2] + a[3] * b[2, 3];
+            result[3] = a[0] * b[3, 0] + a[1] * b[3, 1] + a[2] * b[3, 2] + a[3] * b[3, 3];
             return result;
         }
 
         public static Matrix4 operator /(Matrix4 m, float scalar)
         {
-            var result = new Matrix4();
-            for (int row = 0; row < 4; row++)
-            {
-                result[row] = m[row] / scalar;
-            }
-            return result;
+            m[0] /= scalar;
+            m[1] /= scalar;
+            m[2] /= scalar;
+            m[3] /= scalar;
+            return m;
         }
         public static Matrix4 operator /(float scalar, Matrix4 m) => scalar * m.Inverse();
         public static Matrix4 operator /(Matrix4 a, Matrix4 b) => a * b.Inverse();

@@ -40,11 +40,19 @@
             this.matrix = m;
         }
 
+        public Matrix3(Vector3 m0, Vector3 m1, Vector3 m2)
+        {
+            this.matrix = new float[3, 3];
+            this[0] = m0;
+            this[1] = m1;
+            this[2] = m2;
+        }
+
         public Matrix3(float m00, float m01, float m02,
                        float m10, float m11, float m12,
                        float m20, float m21, float m22)
         {
-            this.matrix = new float[3,3];
+            this.matrix = new float[3, 3];
             this[0, 0] = m00; this[0, 1] = m01; this[0, 2] = m02;
             this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12;
             this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22;
@@ -160,87 +168,64 @@
 
         public static Matrix3 operator +(Matrix3 m, float scalar)
         {
-            Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                result[row] = m[row] + scalar;
-            }
-            return result;
+            m[0] += scalar;
+            m[1] += scalar;
+            m[2] += scalar;
+            return m;
         }
         public static Matrix3 operator +(float scalar, Matrix3 m) => m + scalar;
 
         public static Matrix3 operator +(Matrix3 a, Matrix3 b)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
-            {
-                for (int x = 0; x < 3; x++)
-                {
-                    result[x, y] = a[x, y] + b[x, y];
-                }
-            }
+            result[0] = a[0] + b[0];
+            result[1] = a[1] + b[1];
+            result[2] = a[2] + b[2];
             return result;
         }
 
         public static Matrix3 operator -(Matrix3 m, float scalar)
         {
-            Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                result[row] = m[row] - scalar;
-            }
-            return result;
+            m[0] -= scalar;
+            m[1] -= scalar;
+            m[2] -= scalar;
+            return m;
         }
         public static Matrix3 operator -(float scalar, Matrix3 m) => m - scalar;
 
         public static Matrix3 operator -(Matrix3 a, Matrix3 b)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                for (int col = 0; col < 3; col++)
-                {
-                    result[row, col] = a[row, col] - b[row, col];
-                }
-            }
+            result[0] = a[0] - b[0];
+            result[1] = a[1] - b[1];
+            result[2] = a[2] - b[2];
+            result[3] = a[3] - b[3];
             return result;
         }
 
         public static Matrix3 operator *(Matrix3 m, float scalar)
         {
-            Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                result[row] = m[row] * scalar;
-            }
-            return result;
+            m[0] *= scalar;
+            m[1] *= scalar;
+            m[2] *= scalar;
+            return m;
         }
         public static Matrix3 operator *(float scalar, Matrix3 m) => m * scalar;
         public static Matrix3 operator *(Matrix3 a, Matrix3 b)
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                for (int col = 0; col < 3; col++)
-                {
-                    result[row, col] = 0;
-                    for (int i = 0; i < 3; i++)
-                    {
-                        result[row, col] += a[row, i] * b[i, col];
-                    }
-                }
-            }
+            result[0] = a[0] * b[0, 0] + a[1] * b[0, 1] + a[2] * b[0, 2];
+            result[1] = a[0] * b[1, 0] + a[1] * b[1, 1] + a[2] * b[1, 2];
+            result[2] = a[0] * b[2, 0] + a[1] * b[2, 1] + a[2] * b[2, 2];
             return result;
         }
 
         public static Matrix3 operator /(Matrix3 m, float scalar)
         {
-            Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                result[row] = m[row] / scalar;
-            }
-            return result;
+            m[0] /= scalar;
+            m[1] /= scalar;
+            m[2] /= scalar;
+            return m;
         }
         public static Matrix3 operator /(float scalar, Matrix3 m) => scalar * m.Inverse();
         public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();

@@ -10,7 +10,7 @@ namespace Sandbox
                 * Matrix4.Rotation(45.0f, new Vector3(1.0f, 0.0f, 0.0f))
                 * Matrix4.Scale(new Vector3(2.5f, 2.5f, 1.5f));
 
-            Console.WriteLine(mat4);
+            Console.WriteLine(mat4 * mat4.Inverse());
 
             Console.Write(mat4.m0 * 2);
         }
