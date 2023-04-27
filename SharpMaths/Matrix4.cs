@@ -95,11 +95,11 @@
         public Matrix4 Transpose()
         {
             Matrix4 result = new Matrix4(0.0f);
-            for (int y = 0; y < 4; y++)
+            for (int row = 0; row < 4; row++)
             {
-                for (int x = 0; x < 4; x++)
+                for (int col = 0; col < 4; col++)
                 {
-                    result[x, y] = this[y, x];
+                    result[row, col] = this[col, row];
                 }
             }
             return result;

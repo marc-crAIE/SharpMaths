@@ -79,11 +79,11 @@
         public Matrix3 Transpose()
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int y = 0; y < 3; y++)
+            for (int row = 0; row < 3; row++)
             {
-                for (int x = 0; x < 3; x++)
+                for (int col = 0; col < 3; col++)
                 {
-                    result[x, y] = this[y, x];
+                    result[row, col] = this[col, row];
                 }
             }
             return result;
@@ -97,19 +97,19 @@
 
             Matrix3 result = new Matrix3(0.0f);
 
-            result[0, 0] = (m11 * m22 - m12 * m21) / det;
-            result[0, 1] = (m02 * m21 - m01 * m22) / det;
-            result[0, 2] = (m01 * m12 - m02 * m11) / det;
+            result[0, 0] = (m11 * m22 - m12 * m21);
+            result[0, 1] = (m02 * m21 - m01 * m22);
+            result[0, 2] = (m01 * m12 - m02 * m11);
 
-            result[1, 0] = (m12 * m20 - m10 * m22) / det;
-            result[1, 1] = (m00 * m22 - m02 * m20) / det;
-            result[1, 2] = (m02 * m10 - m00 * m12) / det;
+            result[1, 0] = (m12 * m20 - m10 * m22);
+            result[1, 1] = (m00 * m22 - m02 * m20);
+            result[1, 2] = (m02 * m10 - m00 * m12);
 
-            result[2, 0] = (m10 * m21 - m11 * m20) / det;
-            result[2, 1] = (m01 * m20 - m00 * m21) / det;
-            result[2, 2] = (m00 * m11 - m01 * m10) / det;
+            result[2, 0] = (m10 * m21 - m11 * m20);
+            result[2, 1] = (m01 * m20 - m00 * m21);
+            result[2, 2] = (m00 * m11 - m01 * m10);
 
-            return result;
+            return result / det;
         }
 
         #endregion
