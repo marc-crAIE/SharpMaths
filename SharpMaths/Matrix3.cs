@@ -237,6 +237,38 @@
         public static bool operator ==(Matrix3 a, Matrix3 b) => (a[0] == b[0]) && (a[1] == b[1]) && (a[2] == b[2]);
         public static bool operator !=(Matrix3 a, Matrix3 b) => !(a == b);
 
+        public static Matrix3 operator +(Matrix3 m)
+        {
+            return m;
+        }
+
+        public static Matrix3 operator -(Matrix3 m)
+        {
+            Matrix3 result = new Matrix3();
+            result[0] = -m[0];
+            result[1] = -m[1];
+            result[2] = -m[2];
+            return result;
+        }
+
+        public static Matrix3 operator ++(Matrix3 m)
+        {
+            Matrix3 result = new Matrix3();
+            result[0] = m[0]++;
+            result[1] = m[1]++;
+            result[2] = m[2]++;
+            return result;
+        }
+
+        public static Matrix3 operator --(Matrix3 m)
+        {
+            Matrix3 result = new Matrix3();
+            result[0] = m[0]--;
+            result[1] = m[1]--;
+            result[2] = m[2]--;
+            return result;
+        }
+
         public Vector3 this[int row]
         {
             get

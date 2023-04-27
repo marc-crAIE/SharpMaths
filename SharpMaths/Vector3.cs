@@ -100,6 +100,38 @@ namespace SharpMaths
         public static bool operator ==(Vector3 v1, Vector3 v2) => (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z);
         public static bool operator !=(Vector3 v1, Vector3 v2) => !(v1 == v2);
 
+        public static Vector3 operator +(Vector3 v)
+        {
+            return v;
+        }
+
+        public static Vector3 operator -(Vector3 v)
+        {
+            Vector3 result = new Vector3();
+            result.x = -v.x;
+            result.y = -v.y;
+            result.z = -v.z;
+            return result;
+        }
+
+        public static Vector3 operator ++(Vector3 v)
+        {
+            Vector3 result = new Vector3();
+            result.x = v.x++;
+            result.y = v.y++;
+            result.z = v.z++;
+            return v;
+        }
+
+        public static Vector3 operator --(Vector3 v)
+        {
+            Vector3 result = new Vector3();
+            result.x = v.x--;
+            result.y = v.y--;
+            result.z = v.z--;
+            return v;
+        }
+
         public float this[int i]
         {
             get
