@@ -11,6 +11,8 @@ namespace SharpMaths
     {
         public uint colour;
 
+        #region Properties
+
         public byte red
         {
             get { return (byte)(colour >> 24); }
@@ -35,6 +37,10 @@ namespace SharpMaths
             set { colour = (uint)value & 0xFF | colour; }
         }
 
+        #endregion
+
+        #region Constructors
+
         public Colour() : this (0) { }
 
         public Colour(uint colour)
@@ -49,6 +55,10 @@ namespace SharpMaths
             this.colour = (uint)r << 24 | (uint)g << 16 | (uint)b << 8 | a;
         }
 
+        #endregion
+
+        #region Getters and Setters
+
         public byte GetRed() => red;
         public void SetRed(byte red) => this.red = red;
 
@@ -61,15 +71,25 @@ namespace SharpMaths
         public byte GetAlpha() => alpha;
         public void SetAlpha(byte alpha) => this.alpha = alpha;
 
+        #endregion
+
+        #region Type Conversions
+
         public static implicit operator Vector3(Colour colour) => new Vector3(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f);
         public static implicit operator Vector4(Colour colour) => new Vector4(colour.red / 255.0f, colour.green / 255.0f, colour.blue / 255.0f, colour.alpha / 255.0f);
 
         public static implicit operator Colour(Vector3 v) => new Colour((byte)(v.x * 255), (byte)(v.y * 255), (byte)(v.z * 255));
         public static implicit operator Colour(Vector4 v) => new Colour((byte)(v.x * 255), (byte)(v.y * 255), (byte)(v.z * 255));
 
+        #endregion
+
+        #region Function Overloads
+
         public override string ToString()
         {
             return colour.ToString("X");
         }
+
+        #endregion
     }
 }

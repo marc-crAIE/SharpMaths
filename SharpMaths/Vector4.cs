@@ -10,6 +10,8 @@ namespace SharpMaths
     {
         public float x, y, z, w;
 
+        #region Constructors
+
         public Vector4() : this(0.0f) { }
 
         public Vector4(float f) : this(f, f, f, f) { }
@@ -37,6 +39,10 @@ namespace SharpMaths
             this.z = vec3.z;
             this.w = w;
         }
+
+        #endregion
+
+        #region General Functions
 
         public float Dot(Vector4 v)
         {
@@ -71,6 +77,12 @@ namespace SharpMaths
             this.w /= mag;
         }
 
+        #endregion
+
+        #region Operators
+
+        #region Binary Operators
+
         public static Vector4 operator +(Vector4 v, float scalar) => new Vector4(v.x + scalar, v.y + scalar, v.z + scalar, v.w + scalar);
         public static Vector4 operator +(float scalar, Vector4 v) => v + scalar;
         public static Vector4 operator +(Vector4 v1, Vector2 v2) => new Vector4(v1.x + v2.x, v1.y + v2.y, v1.z, v1.w);
@@ -103,8 +115,16 @@ namespace SharpMaths
         public static Vector4 operator /(Vector4 v1, Vector3 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w);
         public static Vector4 operator /(Vector4 v1, Vector4 v2) => new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w / v2.w);
 
+        #endregion
+
+        #region Comparison Operators
+
         public static bool operator ==(Vector4 v1, Vector4 v2) => (v1.x == v2.x) && (v1.y == v2.y) && (v1.z == v2.z) && (v1.w == v2.w);
         public static bool operator !=(Vector4 v1, Vector4 v2) => !(v1 == v2);
+
+        #endregion
+
+        #region Unary Operators
 
         public static Vector4 operator +(Vector4 v)
         {
@@ -141,6 +161,12 @@ namespace SharpMaths
             return v;
         }
 
+        #endregion
+
+        #endregion
+
+        #region Accessors
+
         public float this[int i]
         {
             get
@@ -166,9 +192,19 @@ namespace SharpMaths
             }
         }
 
+        #endregion
+
+        #region Type Conversion
+
         public static implicit operator Vector4(Vector3 v) => new Vector4(v.x, v.y, v.z, 0.0f);
         public static implicit operator Vector4(Vector2 v) => new Vector4(v.x, v.y, 0.0f, 0.0f);
 
+        #endregion
+
+        #region Function Overloads
+
         public override string ToString() => $"( {x}, {y}, {z}, {w} )";
+
+        #endregion
     }
 }

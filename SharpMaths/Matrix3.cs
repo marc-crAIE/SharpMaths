@@ -4,6 +4,8 @@
     {
         private float[,] matrix;
 
+        #region Properties
+
         // First row
         public Vector3 m0 { get => this[0]; set => this[0] = value; }
         public float m00 { get => matrix[0, 0]; set => matrix[0, 0] = value; }
@@ -21,6 +23,10 @@
         public float m20 { get => matrix[2, 0]; set => matrix[2, 0] = value; }
         public float m21 { get => matrix[2, 1]; set => matrix[2, 1] = value; }
         public float m22 { get => matrix[2, 2]; set => matrix[2, 2] = value; }
+
+        #endregion
+
+        #region Constructors
 
         public Matrix3() : this(1.0f) { }
 
@@ -57,6 +63,10 @@
             this[1, 0] = m10; this[1, 1] = m11; this[1, 2] = m12;
             this[2, 0] = m20; this[2, 1] = m21; this[2, 2] = m22;
         }
+
+        #endregion
+
+        #region General Functions
 
         public static Matrix3 Identity() => new Matrix3(1.0f);
 
@@ -102,6 +112,10 @@
             return result;
         }
 
+        #endregion
+
+        #region Transformation Functions
+
         public void SetTranslation(Vector2 v) => this *= Translation(v);
         public void SetTranslation(float x, float y) => SetTranslation(new Vector2(x, y));
 
@@ -113,6 +127,8 @@
 
         public void SetScale(Vector2 v) => this *= Scale(v);
         public void SetScale(float x, float y) => SetScale(new Vector2(x, y));
+
+        #region Create Transform Matrices
 
         public static Matrix3 Translation(Vector2 v)
         {
@@ -165,6 +181,14 @@
             return scale;
         }
         public static Matrix3 Scale(float x, float y) => Scale(new Vector2(x, y));
+
+        #endregion
+
+        #endregion
+
+        #region Operators
+
+        #region Binary Operators
 
         public static Matrix3 operator +(Matrix3 m, float scalar)
         {
@@ -234,8 +258,16 @@
         public static Matrix3 operator /(float scalar, Matrix3 m) => scalar * m.Inverse();
         public static Matrix3 operator /(Matrix3 a, Matrix3 b) => a * b.Inverse();
 
+        #endregion
+
+        #region Comparison Operators
+
         public static bool operator ==(Matrix3 a, Matrix3 b) => (a[0] == b[0]) && (a[1] == b[1]) && (a[2] == b[2]);
         public static bool operator !=(Matrix3 a, Matrix3 b) => !(a == b);
+
+        #endregion
+
+        #region Unary Operators
 
         public static Matrix3 operator +(Matrix3 m)
         {
@@ -269,6 +301,12 @@
             return result;
         }
 
+        #endregion
+
+        #endregion
+
+        #region Accessors
+
         public Vector3 this[int row]
         {
             get
@@ -288,6 +326,10 @@
             get { return matrix[row, col]; }
             set { matrix[row, col] = value; }
         }
+
+        #endregion
+
+        #region Function Overloads
 
         public override string ToString()
         {
@@ -311,5 +353,7 @@
             }
             return result;
         }
+
+        #endregion
     }
 }

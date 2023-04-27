@@ -4,6 +4,8 @@
     {
         private float[,] matrix;
 
+        #region Properties
+
         // First row
         public Vector4 m0 { get => this[0]; set => this[0] = value; }
         public float m00 { get => matrix[0, 0]; set => matrix[0, 0] = value; }
@@ -31,6 +33,10 @@
         public float m31 { get => matrix[3, 1]; set => matrix[3, 1] = value; }
         public float m32 { get => matrix[3, 2]; set => matrix[3, 2] = value; }
         public float m33 { get => matrix[3, 3]; set => matrix[3, 3] = value; }
+
+        #endregion
+
+        #region Constructors
 
         public Matrix4() : this(1.0f) { }
 
@@ -69,6 +75,10 @@
             matrix[1, 0] = m10; matrix[1, 1] = m11; matrix[1, 2] = m12; matrix[1, 3] = m13;
             matrix[2, 0] = m20; matrix[2, 1] = m21; matrix[2, 2] = m22; matrix[2, 3] = m23;
         }
+
+        #endregion
+
+        #region General Functions
 
         public static Matrix4 Identity() => new Matrix4(1.0f);
 
@@ -133,6 +143,10 @@
             return result / det;
         }
 
+        #endregion
+
+        #region Transformation Functions
+
         public void SetTranslation(Vector3 v) => this *= Translation(v);
         public void SetTranslation(float x, float y, float z) => SetTranslation(new Vector3(x, y, z));
 
@@ -144,6 +158,8 @@
 
         public void SetScale(Vector3 v) => this *= Scale(v);
         public void SetScale(float x, float y, float z) => SetScale(new Vector3(x, y, z));
+
+        #region Create Transform Matrices
 
         public static Matrix4 Translation(Vector3 v)
         {
@@ -199,6 +215,14 @@
             return scale;
         }
         public static Matrix4 Scale(float x, float y, float z) => Scale(new Vector3(x, y, z));
+
+        #endregion
+
+        #endregion
+
+        #region Operators
+
+        #region Binary Operators
 
         public static Matrix4 operator +(Matrix4 m, float scalar)
         {
@@ -275,8 +299,16 @@
         public static Matrix4 operator /(float scalar, Matrix4 m) => scalar * m.Inverse();
         public static Matrix4 operator /(Matrix4 a, Matrix4 b) => a * b.Inverse();
 
+        #endregion
+
+        #region Comparison Operators
+
         public static bool operator ==(Matrix4 a, Matrix4 b) => (a[0] == b[0]) && (a[1] == b[1]) && (a[2] == b[2]) && (a[3] == b[3]);
         public static bool operator !=(Matrix4 a, Matrix4 b) => !(a == b);
+
+        #endregion
+
+        #region Unary Operators
 
         public static Matrix4 operator +(Matrix4 m)
         {
@@ -313,6 +345,12 @@
             return result;
         }
 
+        #endregion
+
+        #endregion
+
+        #region Accessors
+
         public Vector4 this[int row]
         {
             get
@@ -333,6 +371,10 @@
             get { return matrix[row, col]; }
             set { matrix[row, col] = value; }
         }
+
+        #endregion
+
+        #region Function Overloads
 
         public override string ToString()
         {
@@ -356,5 +398,7 @@
             }
             return result;
         }
+
+        #endregion
     }
 }

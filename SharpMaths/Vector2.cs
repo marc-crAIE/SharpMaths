@@ -11,6 +11,8 @@ namespace SharpMaths
     {
         public float x, y;
 
+        #region Constructors
+
         public Vector2() : this(0.0f) { }
 
         public Vector2(float f) : this(f, f) { }
@@ -32,6 +34,10 @@ namespace SharpMaths
             this.x = vec4.x;
             this.y = vec4.y;
         }
+
+        #endregion
+
+        #region General Functions
 
         public float Dot(Vector2 v)
         {
@@ -59,6 +65,12 @@ namespace SharpMaths
             this.y /= mag;
         }
 
+        #endregion
+
+        #region Operators
+
+        #region Binary Operators
+
         public static Vector2 operator +(Vector2 v, float scalar) => new Vector2(v.x + scalar, v.y + scalar);
         public static Vector2 operator +(float scalar, Vector2 v) => v + scalar;
         public static Vector2 operator +(Vector2 v1, Vector2 v2) => new Vector2(v1.x + v2.x, v1.y + v2.y);
@@ -83,8 +95,16 @@ namespace SharpMaths
         public static Vector2 operator /(Vector2 v1, Vector3 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
         public static Vector2 operator /(Vector2 v1, Vector4 v2) => new Vector2(v1.x / v2.x, v1.y / v2.y);
 
+        #endregion
+
+        #region Comparison Operators
+
         public static bool operator ==(Vector2 v1, Vector2 v2) => (v1.x == v2.x) && (v1.y == v2.y);
         public static bool operator !=(Vector2 v1, Vector2 v2) => !(v1 == v2);
+
+        #endregion
+
+        #region Unary Operators
 
         public static Vector2 operator +(Vector2 v)
         {
@@ -115,6 +135,12 @@ namespace SharpMaths
             return v;
         }
 
+        #endregion
+
+        #endregion
+
+        #region Accessors
+
         public float this[int i]
         {
             get
@@ -136,9 +162,19 @@ namespace SharpMaths
             }
         }
 
+        #endregion
+
+        #region Type Conversion
+
         public static implicit operator Vector2(Vector3 v) => new Vector2(v.x, v.y);
         public static implicit operator Vector2(Vector4 v) => new Vector2(v.x, v.y);
 
+        #endregion
+
+        #region Function Overloads
+
         public override string ToString() => $"( {x}, {y} )";
+
+        #endregion
     }
 }
