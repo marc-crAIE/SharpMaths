@@ -166,6 +166,10 @@
         public static implicit operator System.Numerics.Vector3(Vector2 v) => new System.Numerics.Vector3(v.x, v.y, 0.0f);
         public static implicit operator System.Numerics.Vector4(Vector2 v) => new System.Numerics.Vector4(v.x, v.y, 0.0f, 0.0f);
 
+        public static implicit operator Vector2(System.Numerics.Vector2 v) => new Vector2(v.X, v.Y);
+        public static implicit operator Vector2(System.Numerics.Vector3 v) => new Vector2(v.X, v.Y);
+        public static implicit operator Vector2(System.Numerics.Vector4 v) => new Vector2(v.X, v.Y);
+
         #endregion
 
         #region Function Overloads
