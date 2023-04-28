@@ -68,12 +68,14 @@
 
         public Matrix4(float m00, float m01, float m02, float m03,
                        float m10, float m11, float m12, float m13,
-                       float m20, float m21, float m22, float m23)
+                       float m20, float m21, float m22, float m23,
+                       float m30, float m31, float m32, float m33)
         {
             this.matrix = new float[4, 4];
             matrix[0, 0] = m00; matrix[0, 1] = m01; matrix[0, 2] = m02; matrix[0, 3] = m03;
             matrix[1, 0] = m10; matrix[1, 1] = m11; matrix[1, 2] = m12; matrix[1, 3] = m13;
             matrix[2, 0] = m20; matrix[2, 1] = m21; matrix[2, 2] = m22; matrix[2, 3] = m23;
+            matrix[3, 0] = m30; matrix[3, 1] = m31; matrix[3, 2] = m32; matrix[3, 3] = m33;
         }
 
         #endregion
@@ -370,6 +372,29 @@
         {
             get { return matrix[row, col]; }
             set { matrix[row, col] = value; }
+        }
+
+        #endregion
+
+        #region Type Conversion
+
+        public static implicit operator System.Numerics.Matrix4x4(Matrix4 m)
+        {
+            return new System.Numerics.Matrix4x4(
+                m[0, 0], m[0, 1], m[0, 2], m[0, 3],
+                m[1, 0], m[1, 1], m[1, 2], m[1, 3],
+                m[2, 0], m[2, 1], m[2, 2], m[2, 3],
+                m[3, 0], m[3, 1], m[3, 2], m[3, 3]
+                );
+        }
+        public static implicit operator Matrix4(System.Numerics.Matrix4x4 m)
+        {
+            return new Matrix4(
+                m.M11, m.M12, m.M13, m.M14,
+                m.M21, m.M22, m.M23, m.M24,
+                m.M31, m.M32, m.M33, m.M34,
+                m.M41, m.M42, m.M43, m.M44
+                );
         }
 
         #endregion
