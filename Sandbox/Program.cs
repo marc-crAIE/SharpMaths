@@ -1,4 +1,5 @@
 ﻿using SharpMaths;
+using Raylib_cs;
 
 namespace Sandbox
 {
@@ -6,11 +7,22 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            Matrix4 mat4 = Matrix4.Translation(new Vector3(3.5f, 2.8f, 9.4f))
-                * Matrix4.Rotation(45.0f, new Vector3(1.0f, 0.0f, 0.0f))
-                * Matrix4.Scale(new Vector3(2.5f, 2.5f, 1.5f));
+            Raylib.InitWindow(800, 600, "Sandbox");
 
-            Console.WriteLine(+mat4);
+            Raylib.SetTargetFPS(60);
+
+            while (!Raylib.WindowShouldClose())
+            {
+                Raylib.BeginDrawing();
+
+                Raylib.ClearBackground(Color.RAYWHITE);
+
+                Raylib.DrawRectangleV(new Vector2(50.0f), new Vector2(150.0f), Color.BLUE);
+
+                Raylib.EndDrawing();
+            }
+
+            Raylib.CloseWindow();
         }
     }
 }
