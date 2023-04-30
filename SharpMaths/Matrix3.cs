@@ -329,6 +329,15 @@
 
         #endregion
 
+        #region Type Conversion
+
+        public static implicit operator Matrix3(Matrix4 m)
+        {
+            return new Matrix3(m[0], m[1], m[2]);
+        }
+
+        #endregion
+
         #region Function Overloads
 
         public override string ToString()
