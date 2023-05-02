@@ -336,6 +336,25 @@
             return new Matrix3(m[0], m[1], m[2]);
         }
 
+        public static implicit operator Matrix3(Quaternion q)
+        {
+            Matrix3 result = new Matrix3();
+
+            result[0, 0] = 1 - 2 * ((q.y * q.y) + (q.z * q.z));
+            result[0, 1] = 2 * ((q.x * q.y) + (q.w * q.z));
+            result[0, 2] = 2 * ((q.x * q.z - (q.w * q.y)));
+
+            result[1, 0] = 2 * ((q.x * q.y) - (q.w * q.z));
+            result[1, 1] = 1 - 2 * ((q.x * q.x) + (q.z * q.z));
+            result[1, 2] = 2 * ((q.y * q.z) + (q.w * q.x));
+
+            result[2, 0] = 2 * ((q.x * q.z) + (q.w * q.y));
+            result[2, 1] = 2 * ((q.y * q.z) - (q.w * q.x));
+            result[2, 2] = 1 - 2 * ((q.x * q.x) + (q.y * q.y));
+
+            return result;
+        }
+
         #endregion
 
         #region Function Overloads

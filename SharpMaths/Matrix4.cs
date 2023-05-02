@@ -383,6 +383,8 @@
             return new Matrix4(m[0], m[1], m[2], new Vector4(0, 0, 0, 1));
         }
 
+        public static implicit operator Matrix4(Quaternion q) => (Matrix4)((Matrix3)q);
+
         public static implicit operator System.Numerics.Matrix4x4(Matrix4 m)
         {
             return new System.Numerics.Matrix4x4(

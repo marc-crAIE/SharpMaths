@@ -10,7 +10,8 @@ namespace Sandbox
         {
             Quaternion quat1 = new Quaternion(new Vector3(2, 3, 4));
             Quaternion quat2 = new Quaternion(new Vector3(4, 3, 2));
-            Console.WriteLine(quat1 * quat2);
+
+            Console.WriteLine((Matrix4)quat1);
 
             //Raylib.InitWindow(800, 600, "Sandbox");
 
