@@ -69,8 +69,8 @@ namespace SharpMaths
 
         public static Quaternion Euler(Vector3 v)
         {
-            Vector3 c = new Vector3((float)Math.Cos(v.x / 2), (float)Math.Cos(v.y / 2), (float)Math.Cos(v.z / 2));
-            Vector3 s = new Vector3((float)Math.Sin(v.x / 2), (float)Math.Sin(v.y / 2), (float)Math.Sin(v.z / 2));
+            Vector3 c = SharpMath.Cos(v / 2);
+            Vector3 s = SharpMath.Sin(v / 2);
 
             Quaternion quat = new Quaternion();
             quat.w = c.x * c.y * c.z + s.x * s.y * s.z;
@@ -111,6 +111,35 @@ namespace SharpMaths
         public static Quaternion operator /(Quaternion q, float scalar) => new Quaternion(q.w / scalar, q.x / scalar, q.y / scalar, q.z / scalar);
 
         #endregion
+
+        #endregion
+
+        #region Accessors
+
+        public float this[int i]
+        {
+            get
+            {
+                switch (i)
+                {
+                    case 0: return w;
+                    case 1: return x;
+                    case 2: return y;
+                    case 3: return z;
+                }
+                return 0;
+            }
+            set
+            {
+                switch (i)
+                {
+                    case 0: w = value; break;
+                    case 1: x = value; break;
+                    case 2: y = value; break;
+                    case 3: z = value; break;
+                }
+            }
+        }
 
         #endregion
 
