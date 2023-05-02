@@ -8,24 +8,28 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            Raylib.InitWindow(800, 600, "Sandbox");
+            Quaternion quat1 = new Quaternion(new Vector3(2, 3, 4));
+            Quaternion quat2 = new Quaternion(new Vector3(4, 3, 2));
+            Console.WriteLine(quat1 * quat2);
 
-            Raylib.SetTargetFPS(60);
+            //Raylib.InitWindow(800, 600, "Sandbox");
 
-            while (!Raylib.WindowShouldClose())
-            {
-                Raylib.BeginDrawing();
+            //Raylib.SetTargetFPS(60);
 
-                Colour colour = new Vector4(1.0f);
+            //while (!Raylib.WindowShouldClose())
+            //{
+            //    Raylib.BeginDrawing();
 
-                Raylib.ClearBackground(colour.ToColor());
+            //    Colour colour = new Vector4(1.0f);
 
-                Raylib.DrawRectangleV(new Vector2(50.0f), new Vector2(150.0f), Color.BLUE);
+            //    Raylib.ClearBackground(colour.ToColor());
 
-                Raylib.EndDrawing();
-            }
+            //    Raylib.DrawRectangleV(new Vector2(50.0f), new Vector2(150.0f), Color.BLUE);
 
-            Raylib.CloseWindow();
+            //    Raylib.EndDrawing();
+            //}
+
+            //Raylib.CloseWindow();
         }
     }
 }

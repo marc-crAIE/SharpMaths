@@ -54,8 +54,7 @@
             if (mag == 0.0f)
                 return;
 
-            this.x /= mag;
-            this.y /= mag;
+            this /= mag;
         }
 
         #endregion

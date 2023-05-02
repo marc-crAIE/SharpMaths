@@ -68,10 +68,7 @@ namespace SharpMaths
             if (mag == 0.0f)
                 return;
 
-            this.x /= mag;
-            this.y /= mag;
-            this.z /= mag;
-            this.w /= mag;
+            this /= mag;
         }
 
         #endregion
@@ -97,6 +94,8 @@ namespace SharpMaths
         public static Vector4 operator *(Vector4 v1, Vector2 v2) => new Vector4(v1.x * v2.x, v1.y * v2.y, v1.z, v1.w);
         public static Vector4 operator *(Vector4 v1, Vector3 v2) => new Vector4(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z, v1.w);
         public static Vector4 operator *(Vector4 v1, Vector4 v2) => new Vector4(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z, v1.w * v2.w);
+        public static Vector4 operator *(Quaternion q, Vector4 v) => new Vector4(q * (Vector3)v, v.w);
+        public static Vector4 operator *(Vector4 v, Quaternion q) => q.Inverse() * v;
         public static Vector4 operator *(Matrix4 m, Vector4 v)
         {
             return new Vector4(

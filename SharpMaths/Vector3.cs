@@ -1,4 +1,6 @@
-﻿namespace SharpMaths
+﻿using System.Runtime.CompilerServices;
+
+namespace SharpMaths
 {
     public struct Vector3
     {
@@ -61,9 +63,7 @@
             if (mag == 0.0f)
                 return;
 
-            this.x /= mag;
-            this.y /= mag;
-            this.z /= mag;
+            this /= mag;
         }
 
         #endregion
@@ -89,6 +89,14 @@
         public static Vector3 operator *(Vector3 v1, Vector2 v2) => new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z);
         public static Vector3 operator *(Vector3 v1, Vector3 v2) => new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
         public static Vector3 operator *(Vector3 v1, Vector4 v2) => new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+        public static Vector3 operator *(Quaternion q, Vector3 v)
+        {
+            Quaternion vQuat = new Quaternion(v.x, v.y, v.z, 0.0f);
+            Quaternion resultQuat = q * vQuat * q.Conjugate();
+
+            return new Vector3(resultQuat.x, resultQuat.y, resultQuat.z);
+        }
+        public static Vector3 operator *(Vector3 v, Quaternion q) => q.Inverse() * v;
         public static Vector3 operator *(Matrix3 m, Vector3 v)
         {
             return new Vector3(
