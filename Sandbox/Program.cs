@@ -8,10 +8,11 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            Quaternion quat1 = new Quaternion(new Vector3(2, 3, 4));
-            Quaternion quat2 = new Quaternion(new Vector3(4, 3, 2));
+            Quaternion quat1 = new Quaternion(new Vector3(45, 0, 0));
+            Quaternion quat2 = Quaternion.FromAxisAngle(new Vector3(3.0f, 0.0f, 0.0f), 45);
 
             Console.WriteLine(quat1);
+            Console.WriteLine(quat2);
 
             //Raylib.InitWindow(800, 600, "Sandbox");
 

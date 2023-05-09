@@ -82,6 +82,8 @@ namespace SharpMaths
 
         public static Quaternion FromAxisAngle(Vector3 axis, float angle)
         {
+            axis.Normalize();
+
             float sin = (float)Math.Sin(angle / 2);
             float cos = (float)Math.Cos(angle / 2);
             return new Quaternion(cos, axis.x * sin, axis.y * sin, axis.z * sin);

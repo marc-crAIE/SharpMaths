@@ -177,6 +177,8 @@
         {
             Matrix4 rotation = new Matrix4();
 
+            axis.Normalize();
+
             float sin = (float)Math.Sin(angle);
             float cos = (float)Math.Cos(angle);
 
