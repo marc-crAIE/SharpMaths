@@ -79,13 +79,17 @@
         public Matrix3 Transpose()
         {
             Matrix3 result = new Matrix3(0.0f);
-            for (int row = 0; row < 3; row++)
-            {
-                for (int col = 0; col < 3; col++)
-                {
-                    result[row, col] = this[col, row];
-                }
-            }
+            result[0, 0] = this[0, 0];
+            result[0, 1] = this[1, 0];
+            result[0, 2] = this[2, 0];
+
+            result[1, 0] = this[0, 1];
+            result[1, 1] = this[1, 1];
+            result[1, 2] = this[2, 1];
+
+            result[2, 0] = this[0, 2];
+            result[2, 1] = this[1, 2];
+            result[2, 2] = this[2, 2];
             return result;
         }
 
