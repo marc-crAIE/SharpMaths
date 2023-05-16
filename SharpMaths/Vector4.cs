@@ -50,9 +50,9 @@ namespace SharpMaths
         {
             return new Vector4(
                 this.y * v.z - this.z * v.y,
-                this.z * v.w - this.w * v.z,
-                this.w * v.x - this.x * v.w,
-                this.x * v.y - this.y * v.x
+                this.z * v.x - this.x * v.z,
+                this.x * v.y - this.y * v.x,
+                0.0f
             );
         }
 
