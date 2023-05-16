@@ -9,25 +9,25 @@
         public byte red
         {
             get { return (byte)(colour >> 24); }
-            set { colour = (uint)value << 24 | colour; }
+            set { colour = (uint)value << 24 | colour & 0x00FFFFFF; }
         }
 
         public byte green
         {
             get { return (byte)(colour >> 16); }
-            set { colour = (uint)value << 16 | colour; }
+            set { colour = (uint)value << 16 | colour & 0xFF00FFFF; }
         }
 
         public byte blue
         {
             get { return (byte)(colour >> 8); }
-            set { colour = (uint)value << 8 | colour; }
+            set { colour = (uint)value << 8 | colour & 0xFFFF00FF; }
         }
 
         public byte alpha
         {
             get { return (byte)(colour & 0xFF); }
-            set { colour = (uint)value & 0xFF | colour; }
+            set { colour = (uint)value & 0xFF | colour & 0xFFFFFF00; }
         }
 
         #endregion

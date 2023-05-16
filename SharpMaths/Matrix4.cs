@@ -161,10 +161,10 @@
 
         #region Transformation Functions
 
-        public void SetTranslation(Vector3 v) => this *= Translation(v);
+        public void SetTranslation(Vector3 v) => this[3] = new Vector4(v.x, v.y, v.z, this[3].w);
         public void SetTranslation(float x, float y, float z) => SetTranslation(new Vector3(x, y, z));
 
-        public void SetRotation(float angle, Vector3 axis) => this *= Rotation(angle, axis);
+        public void SetRotation(float angle, Vector3 axis) => this = Rotation(this, angle, axis);
         public void SetRotation(float angle, float x, float y, float z) => SetRotation(angle, new Vector3(x, y, z));
         public void SetRotationX(float angle) => SetRotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
         public void SetRotationY(float angle) => SetRotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
@@ -185,37 +185,8 @@
         }
         public static Matrix4 Translation(float x, float y, float z) => Translation(new Vector3(x, y, z));
 
-        public static Matrix4 Rotation(float angle, Vector3 axis)
-        {
-            Matrix4 rotation = new Matrix4();
-
-            axis.Normalize();
-
-            float sin = (float)Math.Sin(angle);
-            float cos = (float)Math.Cos(angle);
-
-            axis.Normalize();
-
-            Vector3 omc = (1.0f - cos) * axis;
-
-            float x = axis.x;
-            float y = axis.y;
-            float z = axis.z;
-
-            rotation[0, 0] = cos + omc.x * x;
-            rotation[0, 1] = omc.x * y + sin * z;
-            rotation[0, 2] = omc.x * z - sin * y;
-
-            rotation[1, 0] = omc.y * x - sin * z;
-            rotation[1, 1] = cos + omc.y * y;
-            rotation[1, 2] = omc.y * z + sin * x;
-
-            rotation[2, 0] = omc.z * x + sin * y;
-            rotation[2, 1] = omc.z * y - sin * x;
-            rotation[2, 2] = cos + omc.z * z;
-
-            return rotation;
-        }
+        public static Matrix4 Rotation(Matrix4 m, float angle, Vector3 axis) => Matrix3.Rotation(m, angle, axis);
+        public static Matrix4 Rotation(float angle, Vector3 axis) => Rotation(new Matrix4(1.0f), angle, axis);
         public static Matrix4 Rotation(float angle, float x, float y, float z) => Rotation(angle, new Vector3(x, y, z));
 
         public static Matrix4 RotationX(float angle) => Rotation(angle, new Vector3(1.0f, 0.0f, 0.0f));

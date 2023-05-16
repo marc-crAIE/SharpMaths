@@ -120,10 +120,10 @@
 
         #region Transformation Functions
 
-        public void SetTranslation(Vector2 v) => this *= Translation(v);
+        public void SetTranslation(Vector2 v) => this[2] = new Vector3(v.x, v.y, this[2].z);
         public void SetTranslation(float x, float y) => SetTranslation(new Vector2(x, y));
 
-        public void SetRotation(float angle, Vector3 axis) => this *= Rotation(angle, axis);
+        public void SetRotation(float angle, Vector3 axis) => this = Rotation(this, angle, axis);
         public void SetRotation(float angle, float x, float y, float z) => SetRotation(angle, new Vector3(x, y, z));
         public void SetRotationX(float angle) => SetRotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
         public void SetRotationY(float angle) => SetRotation(angle, new Vector3(0.0f, 1.0f, 0.0f));
@@ -142,9 +142,9 @@
             return translation;
         }
 
-        public static Matrix3 Rotation(float angle, Vector3 axis)
+        public static Matrix3 Rotation(Matrix3 m, float angle, Vector3 axis)
         {
-            Matrix3 rotation = new Matrix3();
+            Matrix3 rotation = m;
 
             axis.Normalize();
 
@@ -173,6 +173,7 @@
 
             return rotation;
         }
+        public static Matrix3 Rotation(float angle, Vector3 axis) => Rotation(new Matrix3(1.0f), angle, axis);
         public static Matrix3 Rotation(float angle, float x, float y, float z) => Rotation(angle, new Vector3(x, y, z));
 
         public static Matrix3 RotationX(float angle) => Rotation(angle, new Vector3(1.0f, 0.0f, 0.0f));
