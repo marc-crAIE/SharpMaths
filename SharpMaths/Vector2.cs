@@ -91,7 +91,7 @@
 
         #region Comparison Operators
 
-        public static bool operator ==(Vector2 v1, Vector2 v2) => (v1.x == v2.x) && (v1.y == v2.y);
+        public static bool operator ==(Vector2 v1, Vector2 v2) => v1.x.IsEqual(v2.x) && v1.y.IsEqual(v2.y);
         public static bool operator !=(Vector2 v1, Vector2 v2) => !(v1 == v2);
 
         #endregion

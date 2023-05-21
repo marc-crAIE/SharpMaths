@@ -8,6 +8,13 @@ namespace SharpMaths
 {
     public static partial class SharpMath
     {
+        public const float FloatTolerance = 0.0001f;
+
+        public static bool IsEqual(this float a, float b, float tolerance = FloatTolerance)
+        {
+            return Math.Abs(a - b) < tolerance;
+        }
+
         public static float ToRadians(float degrees) => degrees * (float)(Math.PI / 180.0f);
         public static Vector3 ToRadians(Vector2 v) => new Vector2(ToRadians(v.x), ToRadians(v.y));
         public static Vector4 ToRadians(Vector3 v) => new Vector3(ToRadians(v.x), ToRadians(v.y), ToRadians(v.z));
