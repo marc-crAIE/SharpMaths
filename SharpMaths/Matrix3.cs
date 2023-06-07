@@ -148,8 +148,8 @@
 
             axis.Normalize();
 
-            float sin = (float)Math.Sin(angle);
-            float cos = (float)Math.Cos(angle);
+            float sin = MathF.Sin(angle);
+            float cos = MathF.Cos(angle);
 
             Vector3 omc = (1.0f - cos) * axis;
 

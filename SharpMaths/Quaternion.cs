@@ -44,7 +44,7 @@ namespace SharpMaths
 
         public float Magnitude()
         {
-            return (float)Math.Sqrt(w * w + x * x + y * y + z * z);
+            return MathF.Sqrt(w * w + x * x + y * y + z * z);
         }
 
         public void Normalize()
@@ -84,8 +84,8 @@ namespace SharpMaths
         {
             axis.Normalize();
 
-            float sin = (float)Math.Sin(angle / 2);
-            float cos = (float)Math.Cos(angle / 2);
+            float sin = MathF.Sin(angle / 2);
+            float cos = MathF.Cos(angle / 2);
             return new Quaternion(cos, axis.x * sin, axis.y * sin, axis.z * sin);
         }
 

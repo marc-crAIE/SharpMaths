@@ -58,7 +58,7 @@ namespace SharpMaths
 
         public float Magnitude()
         {
-            return (float)Math.Sqrt(x * x + y * y + z * z + w * w);
+            return MathF.Sqrt(x * x + y * y + z * z + w * w);
         }
 
         public void Normalize()

@@ -44,7 +44,7 @@
 
         public float Magnitude()
         {
-            return (float)Math.Sqrt(x * x + y * y);
+            return MathF.Sqrt(x * x + y * y);
         }
 
         public void Normalize()
